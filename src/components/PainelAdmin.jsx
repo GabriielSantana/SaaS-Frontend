@@ -410,7 +410,7 @@ const MinhaConta = ({ }) => {
 const AbaSuporte = ({ }) => {
     const [mensagemSuporte, setMensagemSuporte] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const numeroWhatsapp = '5511980024862'; 
+    const numeroWhatsapp = '5511989924862'; 
     const mensagemWhatsapp = encodeURIComponent("Olá! Preciso de ajuda com a plataforma G2Plannix.");
     const whatsappUrl = `https://wa.me/${numeroWhatsapp}?text=${mensagemWhatsapp}`;
 
