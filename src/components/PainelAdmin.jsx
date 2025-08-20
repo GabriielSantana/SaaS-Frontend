@@ -428,7 +428,7 @@ const AbaSuporte = ({ }) => {
 
             const result = await res.json();
             if (res.ok) {
-                toast.success('sucesso');
+                toast.success('sucesso, logo entraremos em contato!');
                 setMensagemSuporte(''); // Limpa o campo
             } else {
                 throw new Error(result.message);
