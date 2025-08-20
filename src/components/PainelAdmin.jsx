@@ -1,5 +1,3 @@
-// src/components/PainelAdmin.jsx
-
 import React, { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -271,7 +269,8 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
     );
 };
 const LinkAgendamento = ({ empresaId }) => {
-    const agendamentoUrl = `${CLIENT_BASE_URL}/agendamento/${empresaId}`;
+    // Pega a URL base do site atual (ex: 'https://g2plannix.netlify.app')
+    const agendamentoUrl = `${window.location.origin}/agendamento/${empresaId}`;
     return (
         <div className="admin-card link-agendamento-container">
             <h2>Compartilhe seu Link de Agendamento</h2>
