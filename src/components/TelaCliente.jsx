@@ -4,7 +4,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './TelaCliente.css';
 import { toast } from 'react-toastify';
-
 import { API_BASE_URL } from '../api';
 
 const TelaCliente = () => {
@@ -24,53 +23,58 @@ const TelaCliente = () => {
     // Hook para buscar dados iniciais (empresa e serviços)
     useEffect(() => {
         const fetchInitialData = async () => {
-            if (!empresaId) return;
+            if (!slug) return;
             try {
-                 const empresaRes = await fetch(`${API_BASE_URL}/public/empresas/slug/${slug}`);
-                if (empresaRes.ok) setEmpresa(await empresaRes.json());
+                const empresaRes = await fetch(`${API_BASE_URL}/public/empresas/slug/${slug}`);
+                if (empresaRes.ok) {
+                    const empresaData = await empresaRes.json();
+                    setEmpresa(empresaData);
 
-                const servicosRes = await fetch(`${API_BASE_URL}/public/empresas/${empresaData.id}/servicos`);
-                if (servicosRes.ok) setServicos(await servicosRes.json());
-                
+                    // CORREÇÃO 1: Usa 'empresaData.id' para a busca seguinte
+                    const servicosRes = await fetch(`${API_BASE_URL}/public/empresas/${empresaData.id}/servicos`);
+                    if (servicosRes.ok) setServicos(await servicosRes.json());
+                }
             } catch (error) {
                 console.error('Erro ao buscar dados iniciais:', error);
             }
         };
         fetchInitialData();
-    },  [slug]);
+    }, [slug]);
 
     // Hooks para buscar dias e horários
     useEffect(() => {
-        const fetchDiasEHorarios = () => {
-            if (!servicoSelecionado) return;
+        // Só executa se tivermos a empresa e um serviço selecionado
+        if (!empresa || !servicoSelecionado) return;
 
-            // Busca DIAS para o calendário
-            const fetchDias = async () => {
-                const mes = dataAtiva.getMonth() + 1;
-                const ano = dataAtiva.getFullYear();
-                try {
-                    const res = await fetch(`${API_BASE_URL}/public/empresas/${empresaId}/dias-disponiveis?mes=${mes}&ano=${ano}&duracao=${servicoSelecionado.duracao_minutos}`);
-                    if (res.ok) setDiasDisponiveis(await res.json());
-                } catch (error) { console.error("Erro ao carregar dias:", error); }
-            };
-
-            // Busca HORÁRIOS para a data selecionada
-            const fetchHorarios = async () => {
-                if (!dataSelecionada) return;
-                const dataFormatada = dataSelecionada.toISOString().split('T')[0];
-                try {
-                    const url = `${API_BASE_URL}/public/empresas/${empresaId}/horarios-disponiveis?dataCompleta=${dataFormatada}&duracao=${servicoSelecionado.duracao_minutos}`;
-                    const res = await fetch(url);
-                    if (res.ok) setHorariosDisponiveis(await res.json());
-                    else setHorariosDisponiveis([]);
-                } catch (error) { setHorariosDisponiveis([]); }
-            };
-
-            fetchDias();
-            fetchHorarios();
+        const fetchDias = async () => {
+            const mes = dataAtiva.getMonth() + 1;
+            const ano = dataAtiva.getFullYear();
+            try {
+                // CORREÇÃO 2: Usa 'empresa.id' em vez de 'slug'
+                const res = await fetch(`${API_BASE_URL}/public/empresas/${empresa.id}/dias-disponiveis?mes=${mes}&ano=${ano}&duracao=${servicoSelecionado.duracao_minutos}`);
+                if (res.ok) setDiasDisponiveis(await res.json());
+            } catch (error) { console.error("Erro ao carregar dias:", error); }
         };
-        fetchDiasEHorarios();
-    }, [servicoSelecionado, dataSelecionada, dataAtiva, empresaId]);
+
+        const fetchHorarios = async () => {
+            if (!dataSelecionada) return;
+            const dataFormatada = dataSelecionada.toISOString().split('T')[0];
+            try {
+                // CORREÇÃO 3: Usa 'empresa.id' em vez de 'slug'
+                const url = `${API_BASE_URL}/public/empresas/${empresa.id}/horarios-disponiveis?dataCompleta=${dataFormatada}&duracao=${servicoSelecionado.duracao_minutos}`;
+                const res = await fetch(url);
+                if (res.ok) setHorariosDisponiveis(await res.json());
+                else setHorariosDisponiveis([]);
+            } catch (error) { setHorariosDisponiveis([]); }
+        };
+
+        fetchDias();
+        if (dataSelecionada) {
+            fetchHorarios();
+        } else {
+            setHorariosDisponiveis([]);
+        }
+    }, [empresa, servicoSelecionado, dataSelecionada, dataAtiva]);
 
     const isTileDisabled = ({ date, view }) => {
         if (view === 'month') {
@@ -100,14 +104,15 @@ const TelaCliente = () => {
         setAgendamentoInfo(prev => ({...prev, [e.target.name]: e.target.value}));
     };
     
-   const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
         const dataFormatadaParaEnvio = dataSelecionada.toISOString().split('T')[0];
         
         const agendamento = {
-            empresa_id: parseInt(empresaId),
+            // CORREÇÃO 4: Usa 'empresa.id'
+            empresa_id: empresa.id,
             servico_id: servicoSelecionado.id,
             data: dataFormatadaParaEnvio,
             hora: horaSelecionada,
@@ -124,25 +129,21 @@ const TelaCliente = () => {
             const result = await response.json();
 
             if (response.ok) {
-                //Exibe a notificação PRIMEIRO
                 toast.success('Agendamento realizado com sucesso!');
-
-                // Limpa o formulário e os estados para o padrão inicial
                 setServicoSelecionado(null);
                 setDataSelecionada(null);
                 setHoraSelecionada('');
                 setAgendamentoInfo({ nome_cliente: '', email_cliente: '' });
                 setHorariosDisponiveis([]);
-                setDiasDisponiveis([]); // Limpa os dias para forçar uma nova busca
-                setAbaAberta(null); // Garante que todas as abas fiquem fechadas
-
+                setDiasDisponiveis([]);
+                setAbaAberta(null);
             } else {
                 toast.error(result.message || 'Erro ao agendar.');
             }
         } catch (error) {
             toast.error('Erro de conexão.');
         } finally {
-            setIsLoading(false); //DESATIVA O CARREGANDO, INDEPENDENTE DO RESULTADO
+            setIsLoading(false);
         }
     };
 
