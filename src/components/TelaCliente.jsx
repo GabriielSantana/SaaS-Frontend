@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../api';
 
 const TelaCliente = () => {
-    const { empresaId } = useParams();
+    const { slug } = useParams();
     const [empresa, setEmpresa] = useState(null);
     const [servicos, setServicos] = useState([]);
     const [servicoSelecionado, setServicoSelecionado] = useState(null);
@@ -26,10 +26,10 @@ const TelaCliente = () => {
         const fetchInitialData = async () => {
             if (!empresaId) return;
             try {
-                const empresaRes = await fetch(`${API_BASE_URL}/public/empresas/${empresaId}`);
+                 const empresaRes = await fetch(`${API_BASE_URL}/public/empresas/slug/${slug}`);
                 if (empresaRes.ok) setEmpresa(await empresaRes.json());
 
-                const servicosRes = await fetch(`${API_BASE_URL}/public/empresas/${empresaId}/servicos`);
+                const servicosRes = await fetch(`${API_BASE_URL}/public/empresas/${empresaData.id}/servicos`);
                 if (servicosRes.ok) setServicos(await servicosRes.json());
                 
             } catch (error) {
@@ -37,7 +37,7 @@ const TelaCliente = () => {
             }
         };
         fetchInitialData();
-    }, [empresaId]);
+    },  [slug]);
 
     // Hooks para buscar dias e horários
     useEffect(() => {

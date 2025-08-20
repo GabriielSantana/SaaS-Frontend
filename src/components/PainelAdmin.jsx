@@ -268,9 +268,9 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
         </div>
     );
 };
-const LinkAgendamento = ({ empresaId }) => {
+const LinkAgendamento = ({ mpresaSlug }) => {
     // Pega a URL base do site atual (ex: 'https://g2plannix.netlify.app')
-    const agendamentoUrl = `${window.location.origin}/agendamento/${empresaId}`;
+    const agendamentoUrl = `${window.location.origin}/agendamento/${empresaSlug}`;
     return (
         <div className="admin-card link-agendamento-container">
             <h2>Compartilhe seu Link de Agendamento</h2>
@@ -539,7 +539,7 @@ const PainelAdmin = () => {
                 <div className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
                 <div className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
                 <div className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
-                <div className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaId={empresaLogada.id} /></div>
+                <div className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
                 <div className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
                 <div className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
                 <div className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>

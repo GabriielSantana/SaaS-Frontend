@@ -32,7 +32,7 @@ function App() {
           theme="light"
         />
         <Routes>
-          <Route path="/agendamento/:empresaId" element={<TelaCliente />} />
+          <Route path="/agendamento/:slug" element={<TelaCliente />} />
           <Route path="/registro" element={<EmpresaRegistro />} />
           <Route path="/login" element={<EmpresaLogin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
