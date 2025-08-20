@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HorariosCliente.css'; 
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const HorariosCliente = ({ empresaId }) => {
   const [horarios, setHorarios] = useState({});

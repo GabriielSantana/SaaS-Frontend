@@ -8,8 +8,7 @@ import './PainelAdmin.css';
 import Dashboard from './Dashboard';
 import AbaAssinatura from "./AbaAssinatura";
 
-const API_BASE_URL = 'http://localhost:5000';
-const CLIENT_BASE_URL = 'http://localhost:5173';
+import { API_BASE_URL } from '../api';
 
 // ===================================================================
 // == SEÇÃO DE SUB-COMPONENTES DO PAINEL ==

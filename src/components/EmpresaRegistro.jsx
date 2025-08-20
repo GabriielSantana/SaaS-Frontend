@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import './EmpresaRegistro.css';
 
 // Define a URL base da sua API
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const EmpresaRegistro = () => {
     const [tipoDocumento, setTipoDocumento] = useState('cnpj');

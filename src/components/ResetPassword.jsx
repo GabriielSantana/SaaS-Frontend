@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import './EmpresaLogin.css';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const ResetPassword = () => {
     const [senha, setSenha] = useState('');

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './EmpresaLogin.css';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const EmpresaLogin = () => {
   const [email, setEmail] = useState('');

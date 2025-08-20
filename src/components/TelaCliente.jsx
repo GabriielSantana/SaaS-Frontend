@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import './TelaCliente.css';
 import { toast } from 'react-toastify';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const TelaCliente = () => {
     const { empresaId } = useParams();

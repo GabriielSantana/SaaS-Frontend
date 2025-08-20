@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css'; // Criaremos este arquivo a seguir
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 // Ícones simples para os cards
 const IconeCalendario = () => <span>📅</span>;

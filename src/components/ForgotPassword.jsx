@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // (Reutilize o CSS da tela de login se desejar)
 import './EmpresaLogin.css';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
