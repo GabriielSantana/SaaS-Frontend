@@ -268,7 +268,7 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
         </div>
     );
 };
-const LinkAgendamento = ({ mpresaSlug }) => {
+const LinkAgendamento = ({ empresaSlug }) => {
     // Pega a URL base do site atual (ex: 'https://g2plannix.netlify.app')
     const agendamentoUrl = `${window.location.origin}/agendamento/${empresaSlug}`;
     return (
