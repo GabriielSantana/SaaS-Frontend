@@ -26,7 +26,7 @@ const AbaAssinatura = () => {
         setIsLoading(true);
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`${API_BASE_URL}/pagamentos/create-portal-session`, {
+            const response = await fetch(`${API_BASE_URL}/admin/create-portal-session`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
