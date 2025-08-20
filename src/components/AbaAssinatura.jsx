@@ -7,7 +7,11 @@ const AbaAssinatura = () => {
     const [assinatura, setAssinatura] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
+    const empresaLogada = JSON.parse(localStorage.getItem('empresa'));
+
+    const isContaAdmin = empresaLogada && (empresaLogada.id === 1 || empresaLogada.id === 2);
+
+   useEffect(() => {
         const fetchAssinatura = async () => {
             const token = localStorage.getItem('token');
             try {
@@ -50,8 +54,6 @@ const AbaAssinatura = () => {
         'pendente': { classe: 'status-pendente', texto: 'Pendente' },
         'inativa': { classe: 'status-inativo', texto: 'Inativa' },
     };
-
-    const isContaAdmin = !assinatura.stripe_customer_id;
 
     return (
         <div className="admin-card">
