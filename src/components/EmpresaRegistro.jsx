@@ -47,29 +47,34 @@ const EmpresaRegistro = () => {
 
     const mascaraDocumento = tipoDocumento === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00';
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (empresa.senha !== confirmarSenha) {
-            toast.error('As senhas não coincidem.'); // 3. Usa toast para o erro
-            return;
+     const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (empresa.senha !== confirmarSenha) {
+        toast.error('As senhas não coincidem.');
+        return;
+    }
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/registro`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(empresa),
+        });
+        
+        const result = await response.json();
+
+        if (response.ok) {
+            // SUCESSO! Agora temos a URL da Stripe
+            toast.success('Cadastro realizado! A redirecionar para o pagamento...');
+            
+            // Redireciona o utilizador para a página de pagamento da Stripe
+            window.location.href = result.url;
+        } else {
+            toast.error(result.message || 'Ocorreu um erro no registro.');
         }
-        try {
-            const response = await fetch(`${API_BASE_URL}/auth/registro`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(empresa),
-            });
-            const result = await response.json();
-            if (response.ok) {
-                toast.success('Cadastro realizado com sucesso! Redirecionando...'); // 3. Usa toast para o sucesso
-                setTimeout(() => navigate('/login'), 2000);
-            } else {
-                toast.error(result.message || 'Ocorreu um erro no registro.'); // 3. Usa toast para o erro
-            }
-        } catch (error) {
-            toast.error('Erro de conexão. Verifique o servidor.'); // 3. Usa toast para o erro
-        }
-    };
+    } catch (error) {
+        toast.error('Erro de conexão. Verifique o servidor.');
+    }
+};
 
     return (
         <div className="empresa-registro-container">
