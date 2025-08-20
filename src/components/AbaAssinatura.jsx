@@ -32,7 +32,6 @@ const AbaAssinatura = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                // Redireciona o utilizador para o Portal do Cliente da Stripe
                 window.location.href = data.url;
             } else {
                 throw new Error(data.message);
@@ -52,23 +51,32 @@ const AbaAssinatura = () => {
         'inativa': { classe: 'status-inativo', texto: 'Inativa' },
     };
 
+    const isContaAdmin = !assinatura.stripe_customer_id;
+
     return (
         <div className="admin-card">
             <h2>Minha Assinatura</h2>
             <div className="assinatura-status">
                 <p>Status: <span className={statusInfo[assinatura.status_assinatura]?.classe || ''}>{statusInfo[assinatura.status_assinatura]?.texto || 'Desconhecido'}</span></p>
-                <p>Próximo Vencimento: <strong>{assinatura.data_vencimento ? new Date(assinatura.data_vencimento).toLocaleDateString() : '...'}</strong></p>
+                <p>Próximo Vencimento: <strong>{isContaAdmin ? 'Vitalício (Admin)' : new Date(assinatura.data_vencimento).toLocaleDateString()}</strong></p>
             </div>
+            
             <div className="instrucoes-pagamento">
                 <h3>Gerir Assinatura</h3>
-                <p>Para atualizar o seu método de pagamento, ver o histórico de faturas ou cancelar a sua assinatura, aceda ao nosso portal seguro.</p>
-                <button 
-                    className="btn-primary" 
-                    onClick={handleManageSubscription} 
-                    disabled={isLoading}
-                >
-                    {isLoading ? 'A carregar...' : 'Gerir Fatura e Pagamento'}
-                </button>
+                {isContaAdmin ? (
+                    <p>Esta é uma conta de administrador com acesso isento. Não é necessário gerir uma fatura.</p>
+                ) : (
+                    <>
+                        <p>Para atualizar o seu método de pagamento, ver o histórico de faturas ou cancelar a sua assinatura, aceda ao nosso portal seguro.</p>
+                        <button 
+                            className="btn-primary" 
+                            onClick={handleManageSubscription} 
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'A carregar...' : 'Gerir Fatura e Pagamento'}
+                        </button>
+                    </>
+                )}
             </div>
         </div>
     );
