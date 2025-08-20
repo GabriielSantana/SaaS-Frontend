@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { loadStripe } from '@stripe/stripe-js';
 import './PainelAdmin.css';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from '../api';
 
 // Carrega a instância do Stripe fora do componente para evitar recarregamentos
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
