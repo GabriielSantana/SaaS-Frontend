@@ -1,0 +1,133 @@
+/* src/components/Header.css */
+
+.main-header {
+    background: linear-gradient(to right, black 30%, rgb(18, 116, 228));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: top 0.4s ease-in-out;
+}
+
+.main-header.visible {
+    top: 0;
+}
+
+.main-header.hidden {
+    top: -100px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    
+    /* ALTERAÇÃO PRINCIPAL: Define uma altura fixa e esconde o excesso */
+    height: 80px;
+    overflow: hidden; 
+}
+
+.logo .logo-image {
+    /* O logo pode ter um tamanho maior, mas será cortado pelo container */
+    height: 330px; /* Exemplo: o GIF tem 120px de altura */
+    width: auto;
+    display: block;
+    margin: auto 0; /* Ajuda a centralizar verticalmente se o gif for menor */
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-nav a, .btn-logout-header {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-logout-header:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.main-nav .nav-highlight {
+    background-color: #2ecc71;
+    color: white;
+}
+.main-nav .nav-highlight:hover {
+    background-color: #27ae60;
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+.menu-icon.open .bar1 { transform: rotate(-45deg) translate(-5px, 6px); }
+.menu-icon.open .bar2 { opacity: 0; }
+.menu-icon.open .bar3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+
+@media (max-width: 768px) {
+    .header-container { height: 70px; }
+    .logo .logo-image { height: 100px; } /* Exemplo para mobile */
+
+    .menu-icon { display: block; }
+    .main-nav {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(44, 62, 80, 0.98);
+        backdrop-filter: blur(5px);
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+    }
+
+    .main-nav.open {
+        max-height: 300px;
+    }
+    
+    .main-nav a, .btn-logout-header {
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}

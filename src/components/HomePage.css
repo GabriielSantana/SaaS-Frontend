@@ -1,0 +1,140 @@
+/* src/components/HomePage.css */
+
+.homepage-container {
+    width: 100%;
+    color: #333;
+}
+
+/* --- Seção Hero --- */
+.hero-section {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.hero-section .subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.cta-button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pricing-note {
+    margin-top: 15px; 
+    font-size: 0.9rem;
+    color: #7f8c8d; 
+}
+
+.cta-button:hover {
+    background-color: #27ae60;
+    transform: translateY(-3px);
+}
+
+/* --- Seção de Funcionalidades --- */
+.features-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.features-section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #34495e;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* --- Seção do Criador e Suporte --- */
+.creator-section, .support-section {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.creator-section {
+    background-color: #f0f2f5;
+}
+
+.creator-section h2, .support-section h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.creator-section p, .support-section p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    max-width: 600px;
+    margin: 0 auto 25px auto;
+}
+
+.instagram-button, .support-email {
+    color: #3498db;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.instagram-button {
+    background: linear-gradient(to top right, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.instagram-button:hover {
+    background-color: #15191b;
+}
