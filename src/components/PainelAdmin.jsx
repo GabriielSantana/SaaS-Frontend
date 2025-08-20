@@ -202,13 +202,24 @@ const ListaAgendamentos = ({ agendamentos, onUpdate}) => {
     );
 };
 
-const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
+const EditorHorarios = ({ horarios, empresaId, onUpdate }) => {
     const [novoHorario, setNovoHorario] = useState({ dia_da_semana: '', hora_inicio: '', hora_termino: '' });
+    
     const diasDaSemanaMap = {
         'segunda': 'Segunda-feira', 'terca': 'Terça-feira', 'quarta': 'Quarta-feira',
         'quinta': 'Quinta-feira', 'sexta': 'Sexta-feira', 'sabado': 'Sábado', 'domingo': 'Domingo'
     };
+
+    const horariosAgrupados = horarios.reduce((acc, h) => {
+        if (!acc[h.dia_da_semana]) {
+            acc[h.dia_da_semana] = [];
+        }
+        acc[h.dia_da_semana].push(h);
+        return acc;
+    }, {});
+
     const handleInputChange = (e) => setNovoHorario({ ...novoHorario, [e.target.name]: e.target.value });
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
@@ -224,6 +235,7 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
             console.error(error);
         }
     };
+    
     const handleDelete = async (horarioId) => {
         if (!window.confirm('Tem certeza?')) return;
         const token = localStorage.getItem('token');
@@ -254,20 +266,28 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate}) => {
             </form>
             <div className="lista-dados">
                 <h3>Horários Cadastrados</h3>
-                {horarios.length > 0 ? (
-                    <ul>
-                        {horarios.map(h => (
-                            <li key={h.id}>
-                                <strong>{diasDaSemanaMap[h.dia_da_semana]}</strong>: {h.hora_inicio.substring(0, 5)} - {h.hora_termino.substring(0, 5)}
-                                <div className="item-actions"><button className="btn-danger" onClick={() => handleDelete(h.id)}>Excluir</button></div>
-                            </li>
-                        ))}
-                    </ul>
+                {Object.keys(horariosAgrupados).length > 0 ? (
+                    Object.keys(diasDaSemanaMap).map(dia => (
+                        horariosAgrupados[dia] && (
+                            <div key={dia} className="horario-dia-admin">
+                                <strong>{diasDaSemanaMap[dia]}:</strong>
+                                <ul className="horarios-intervalos-admin">
+                                    {horariosAgrupados[dia].map(h => (
+                                        <li key={h.id}>
+                                            <span>{h.hora_inicio.substring(0, 5)} - {h.hora_termino.substring(0, 5)}</span>
+                                            <button className="btn-danger btn-excluir-horario" onClick={() => handleDelete(h.id)}>Excluir</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )
+                    ))
                 ) : <p>Nenhum horário cadastrado.</p>}
             </div>
         </div>
     );
 };
+
 const LinkAgendamento = ({ empresaSlug }) => {
     // Pega a URL base do site atual (ex: 'https://g2plannix.netlify.app')
     const agendamentoUrl = `${window.location.origin}/agendamento/${empresaSlug}`;
