@@ -35,7 +35,8 @@ const Header = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.clear();
+        localStorage.removeItem('token');
+        localStorage.removeItem('empresa');
         setIsLoggedIn(false);
         setMenuOpen(false);
         navigate('/login');

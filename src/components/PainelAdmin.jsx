@@ -327,7 +327,8 @@ const MinhaConta = ({ }) => {
                     const data = await res.json();
                     setDadosEmpresa(data);
                 } else {
-                    localStorage.clear();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('empresa');
                     navigate('/login');
                 }
             } catch (error) {
@@ -534,7 +535,8 @@ const PainelAdmin = () => {
         } catch (error) {
       console.error('Erro ao buscar dados do painel:', error);
             toast.error(error.message);
-            localStorage.clear();
+            localStorage.removeItem('token');
+            localStorage.removeItem('empresa');
             navigate('/login');
         }
     };
