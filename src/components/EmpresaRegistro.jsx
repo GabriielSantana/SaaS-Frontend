@@ -47,7 +47,7 @@ const EmpresaRegistro = () => {
 
     const mascaraDocumento = tipoDocumento === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00';
 
-     const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (empresa.senha !== confirmarSenha) {
         toast.error('As senhas não coincidem.');
@@ -59,15 +59,13 @@ const EmpresaRegistro = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(empresa),
         });
-        
+
         const result = await response.json();
 
         if (response.ok) {
-            // SUCESSO! Agora temos a URL da Stripe
-            toast.success('Cadastro realizado! A redirecionar para o pagamento...');
-            
-            // Redireciona o utilizador para a página de pagamento da Stripe
-            window.location.href = result.url;
+            // APENAS MOSTRA A MENSAGEM DE SUCESSO
+            toast.success(result.message);
+            // Opcional: Você pode limpar os campos do formulário aqui
         } else {
             toast.error(result.message || 'Ocorreu um erro no registro.');
         }
