@@ -54,25 +54,27 @@ const EmpresaRegistro = () => {
         return;
     }
     try {
-        const response = await fetch(`${API_BASE_URL}/auth/registro`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(empresa),
-        });
+            const response = await fetch(`${API_BASE_URL}/auth/registro`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(empresa),
+            });
+            
+            const result = await response.json();
 
-        const result = await response.json();
-
-        if (response.ok) {
-            // APENAS MOSTRA A MENSAGEM DE SUCESSO
-            toast.success(result.message);
-            // Opcional: Você pode limpar os campos do formulário aqui
-        } else {
-            toast.error(result.message || 'Ocorreu um erro no registro.');
+            if (response.ok) {
+                toast.success("Registo quase completo! Por favor, verifique o seu e-mail.");
+                // Redireciona para a página de login após 3 segundos
+                setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
+            } else {
+                toast.error(result.message || 'Ocorreu um erro no registro.');
+            }
+        } catch (error) {
+            toast.error('Erro de conexão. Verifique o servidor.');
         }
-    } catch (error) {
-        toast.error('Erro de conexão. Verifique o servidor.');
-    }
-};
+    };
 
     return (
         <div className="empresa-registro-container">
