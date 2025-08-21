@@ -6,6 +6,7 @@ import './PainelAdmin.css';
 import Dashboard from './Dashboard';
 import AbaAssinatura from "./AbaAssinatura";
 import { subscribeUserToPush } from '../push';
+import TourGuiado from './TourGuiado'; 
 
 import { API_BASE_URL } from '../api';
 
@@ -548,6 +549,8 @@ const PainelAdmin = () => {
 
     return (
         <div className="painel-admin-container">
+            <TourGuiado/>
+            
             <header className="painel-header">
                 <h1>Painel de <span className="empresa-nome">{empresaLogada.nome}</span></h1>
             </header>
@@ -564,14 +567,14 @@ const PainelAdmin = () => {
             </div>
 
            <div className="painel-conteudo">
-                <div className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}><Dashboard /></div>
-                <div className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
-                <div className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
-                <div className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
-                <div className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
-                <div className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
-                <div className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
-                <div className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
+                <div id="dashboard-card" className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}><Dashboard /></div>
+                <div id="agendamentos-card" className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
+                <div id="servicos-card" className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
+                <div id="horarios-card" className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
+                <div id="link-card" className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
+                <div id="conta-card" className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
+                <div id="suporte-card" className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
+                <div id="assinatura-card" className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
             </div>
         </div>
     );
