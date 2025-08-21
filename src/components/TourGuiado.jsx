@@ -51,6 +51,12 @@ const TourGuiado = ({ setAbaAtiva }) => {
             tab: 'suporte',
         },
         {
+            target: '#tab-tutorial',
+            content: 'Aprenda aqui a instalar o sistema como um aplicativo no seu celular para ter acesso rápido e ativar as notificações!',
+            placement: 'bottom',
+            tab: 'tutorial',
+        },
+        {
             target: '#tab-assinatura',
             content: 'Seção de assinatura onde poderá alterar, cancelar e o mais importante RENOVAR sua assinatura!',
             placement: 'bottom',

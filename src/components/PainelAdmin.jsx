@@ -6,6 +6,7 @@ import './PainelAdmin.css';
 import Dashboard from './Dashboard';
 import AbaAssinatura from "./AbaAssinatura";
 import { subscribeUserToPush } from '../push';
+import AbaTutorial from './AbaTutorial';
 import TourGuiado from './TourGuiado'; 
 
 import { API_BASE_URL } from '../api';
@@ -563,6 +564,7 @@ const PainelAdmin = () => {
                 <button id="tab-link" className={`tab-btn ${abaAtiva === 'link' ? 'active' : ''}`} onClick={() => setAbaAtiva('link')}>Link</button>
                 <button id="tab-conta" className={`tab-btn ${abaAtiva === 'conta' ? 'active' : ''}`} onClick={() => setAbaAtiva('conta')}>Minha Conta</button>
                 <button id="tab-suporte" className={`tab-btn ${abaAtiva === 'suporte' ? 'active' : ''}`} onClick={() => setAbaAtiva('suporte')}>Suporte</button>
+                <button id="tab-tutorial" className={`tab-btn ${abaAtiva === 'tutorial' ? 'active' : ''}`} onClick={() => setAbaAtiva('tutorial')}>Tutorial App</button>
                 <button id="tab-assinatura" className={`tab-btn ${abaAtiva === 'assinatura' ? 'active' : ''}`} onClick={() => setAbaAtiva('assinatura')}>Assinatura</button>
             </div>
 
@@ -574,6 +576,7 @@ const PainelAdmin = () => {
                 <div className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
                 <div className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
                 <div className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
+                <div className={`painel-section ${abaAtiva === 'tutorial' ? '' : 'hide'}`}><AbaTutorial /></div>
                 <div className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
             </div>
         </div>
