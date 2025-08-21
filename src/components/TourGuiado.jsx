@@ -13,41 +13,60 @@ const TourGuiado = ({ setAbaAtiva }) => {
             placement: 'bottom',
             // O primeiro passo não precisa do 'before' pois o dashboard já é a aba padrão
         },
-        {
+         {
             target: '#agendamentos-card',
             content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar a cada agendamento e baixando como planilha!',
             placement: 'right',
-            before: () => setAbaAtiva('agendamentos') // Ativa a aba antes de mostrar o passo
+            // A MUDANÇA ESTÁ AQUI: Adicionamos a Promise com setTimeout
+            before: () => new Promise(resolve => {
+                setAbaAtiva('agendamentos');
+                setTimeout(resolve, 300); // Dá 300ms para o React redesenhar a tela
+            }),
         },
         {
             target: '#servicos-card',
             content: 'Aqui você pode adicionar, editar ou remover os serviços que sua empresa oferece.',
             placement: 'right',
-            before: () => setAbaAtiva('servicos')
+            before: () => new Promise(resolve => {
+                setAbaAtiva('servicos');
+                setTimeout(resolve, 300);
+            }),
         },
         {
             target: '#horarios-card',
-            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, por exmplo: Segunda das 09:00 as 12:00 e segunda das 13:00 as 18:00 assim ninguem irá conseguir agendar entre 12 e 13 da tarde, sendo assim 1 hora livre!',
+            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, por exmplo: Segunda das 09:00 as 12:00 e <br> segunda das 13:00 as 18:00 assim ninguem irá conseguir agendar entre 12 e 13 da tarde!',
             placement: 'right',
-            before: () => setAbaAtiva('horarios')
+            before: () => new Promise(resolve => {
+                setAbaAtiva('horarios');
+                setTimeout(resolve, 300);
+            }),
         },
         {
             target: '#link-card',
             content: 'Este é o seu link mágico! Copie e compartilhe com seus clientes para que eles possam agendar um horário.',
             placement: 'bottom',
-            before: () => setAbaAtiva('link')
+            before: () => new Promise(resolve => {
+                setAbaAtiva('link');
+                setTimeout(resolve, 300);
+            }),
         },
           {
             target: '#conta-card',
             content: 'Aqui você visualiza seu cadastro e edita qualquer informação que possa estar errada!',
             placement: 'right',
-            before: () => setAbaAtiva('conta')
+            before: () => new Promise(resolve => {
+                setAbaAtiva('conta');
+                setTimeout(resolve, 300);
+            }),
         },
           {
             target: '#assinatura-card',
             content: 'Seção de assinatura onde poderar alterar, cancelar e o mais importante RENOVAR sua assinatura!',
             placement: 'right',
-            before: () => setAbaAtiva('assinatura')
+            before: () => new Promise(resolve => {
+                setAbaAtiva('assinatura');
+                setTimeout(resolve, 300);
+            }),
         },
           {
             target: '.painel-tabs',
