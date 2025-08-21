@@ -1,47 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import Joyride, { STATUS } from 'react-joyride';
 
-const TourGuiado = () => {
+// 1. Receba a prop { setAbaAtiva }
+const TourGuiado = ({ setAbaAtiva }) => { 
     const [runTour, setRunTour] = useState(false);
 
-    // Define os passos do nosso tutorial
+    // 2. Adicione a propriedade 'before' aos passos para trocar de aba
     const steps = [
         {
-            target: '#dashboard-card', // O seletor CSS do elemento que definimos no Passo 2
+            target: '#dashboard-card',
             content: 'Bem-vindo ao seu painel! Aqui você tem uma visão geral rápida do seu negócio.',
-            placement: 'center', // Posição do pop-up
+            placement: 'bottom',
+            // O primeiro passo não precisa do 'before' pois o dashboard já é a aba padrão
         },
         {
             target: '#agendamentos-card',
             content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar a cada agendamento e baixando como planilha!',
+            placement: 'right',
+            before: () => setAbaAtiva('agendamentos') // Ativa a aba antes de mostrar o passo
         },
         {
             target: '#servicos-card',
             content: 'Aqui você pode adicionar, editar ou remover os serviços que sua empresa oferece.',
+            placement: 'right',
+            before: () => setAbaAtiva('servicos')
         },
         {
             target: '#horarios-card',
-            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, por exmplo: Segunda das 09:00 as 12:00 e <br> segunda das 13:00 as 18:00 assim ninguem irá conseguir agendar entre 12 e 13 da tarde!',
+            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, por exmplo: Segunda das 09:00 as 12:00 e segunda das 13:00 as 18:00 assim ninguem irá conseguir agendar entre 12 e 13 da tarde, sendo assim 1 hora livre!',
+            placement: 'right',
+            before: () => setAbaAtiva('horarios')
         },
         {
-            target: '#link-card', // Podemos usar uma classe também
+            target: '#link-card',
             content: 'Este é o seu link mágico! Copie e compartilhe com seus clientes para que eles possam agendar um horário.',
+            placement: 'bottom',
+            before: () => setAbaAtiva('link')
         },
           {
-            target: '#conta-card', // Podemos usar uma classe também
+            target: '#conta-card',
             content: 'Aqui você visualiza seu cadastro e edita qualquer informação que possa estar errada!',
+            placement: 'right',
+            before: () => setAbaAtiva('conta')
         },
           {
-            target: '#assinatura-card', // Podemos usar uma classe também
+            target: '#assinatura-card',
             content: 'Seção de assinatura onde poderar alterar, cancelar e o mais importante RENOVAR sua assinatura!',
+            placement: 'right',
+            before: () => setAbaAtiva('assinatura')
         },
           {
-            target: '.painel-tabs', // Podemos usar uma classe também
+            target: '.painel-tabs',
             content: 'Use estas abas para navegar entre as diferentes seções do seu painel. Explore à vontade!',
+            placement: 'bottom',
+            // Este não precisa do 'before' pois as abas estão sempre visíveis
         },
     ];
 
-    // Lógica para rodar o tour apenas na primeira visita
+    // Lógica para rodar o tour (permanece a mesma)
     useEffect(() => {
         const tourJaVisto = localStorage.getItem('tourCompleto');
         if (!tourJaVisto) {
@@ -49,14 +65,13 @@ const TourGuiado = () => {
         }
     }, []);
 
-    // Função chamada sempre que o estado do tour muda
     const handleJoyrideCallback = (data) => {
         const { status } = data;
-        
-        // Se o tour terminou (concluído ou pulado), marca como visto
         if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
             setRunTour(false);
             localStorage.setItem('tourCompleto', 'true');
+            // Opcional: volta para a aba principal ao final do tour
+            setAbaAtiva('dashboard'); 
         }
     };
 
@@ -65,9 +80,9 @@ const TourGuiado = () => {
             callback={handleJoyrideCallback}
             steps={steps}
             run={runTour}
-            continuous={true} // Para ir de um passo a outro com o botão "Próximo"
-            showProgress={true} // Mostra o progresso (ex: 2/5)
-            showSkipButton={true} // Mostra o botão para pular o tour
+            continuous={true}
+            showProgress={true}
+            showSkipButton={true}
             locale={{
                 back: 'Voltar',
                 close: 'Fechar',
@@ -77,8 +92,8 @@ const TourGuiado = () => {
             }}
             styles={{
                 options: {
-                    zIndex: 10000, // Garante que o tour fique acima de tudo
-                    primaryColor: '#1274e4', // Cor dos botões e destaques
+                    zIndex: 10000,
+                    primaryColor: '#1274e4',
                 },
             }}
         />

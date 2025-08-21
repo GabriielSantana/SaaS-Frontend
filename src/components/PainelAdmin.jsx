@@ -549,8 +549,8 @@ const PainelAdmin = () => {
 
     return (
         <div className="painel-admin-container">
-            <TourGuiado/>
-            
+            <TourGuiado setAbaAtiva={setAbaAtiva} />
+
             <header className="painel-header">
                 <h1>Painel de <span className="empresa-nome">{empresaLogada.nome}</span></h1>
             </header>
