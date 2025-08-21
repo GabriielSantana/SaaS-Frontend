@@ -1,82 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import Joyride, { STATUS } from 'react-joyride';
+import Joyride, { STATUS, EVENTS, ACTIONS } from 'react-joyride';
 
-// 1. Receba a prop { setAbaAtiva }
-const TourGuiado = ({ setAbaAtiva }) => { 
+const TourGuiado = ({ setAbaAtiva }) => {
     const [runTour, setRunTour] = useState(false);
+    // 1. Vamos controlar o passo atual em nosso próprio estado
+    const [stepIndex, setStepIndex] = useState(0);
 
-    // 2. Adicione a propriedade 'before' aos passos para trocar de aba
+    // 2. Simplificamos os passos, adicionando uma propriedade 'tab' para sabermos qual aba ativar
     const steps = [
         {
             target: '#dashboard-card',
             content: 'Bem-vindo ao seu painel! Aqui você tem uma visão geral rápida do seu negócio.',
             placement: 'bottom',
-            // O primeiro passo não precisa do 'before' pois o dashboard já é a aba padrão
+            tab: 'dashboard', // Aba correspondente
         },
-         {
+        {
             target: '#agendamentos-card',
             content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar a cada agendamento e baixando como planilha!',
             placement: 'right',
-            // A MUDANÇA ESTÁ AQUI: Adicionamos a Promise com setTimeout
-            before: () => new Promise(resolve => {
-                setAbaAtiva('agendamentos');
-                setTimeout(resolve, 300); // Dá 300ms para o React redesenhar a tela
-            }),
+            tab: 'agendamentos',
         },
         {
             target: '#servicos-card',
             content: 'Aqui você pode adicionar, editar ou remover os serviços que sua empresa oferece.',
             placement: 'right',
-            before: () => new Promise(resolve => {
-                setAbaAtiva('servicos');
-                setTimeout(resolve, 300);
-            }),
+            tab: 'servicos',
         },
         {
             target: '#horarios-card',
-            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, por exmplo: Segunda das 09:00 as 12:00 e <br> segunda das 13:00 as 18:00 assim ninguem irá conseguir agendar entre 12 e 13 da tarde!',
+            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente...',
             placement: 'right',
-            before: () => new Promise(resolve => {
-                setAbaAtiva('horarios');
-                setTimeout(resolve, 300);
-            }),
+            tab: 'horarios',
         },
         {
             target: '#link-card',
             content: 'Este é o seu link mágico! Copie e compartilhe com seus clientes para que eles possam agendar um horário.',
             placement: 'bottom',
-            before: () => new Promise(resolve => {
-                setAbaAtiva('link');
-                setTimeout(resolve, 300);
-            }),
+            tab: 'link',
         },
-          {
+        {
             target: '#conta-card',
             content: 'Aqui você visualiza seu cadastro e edita qualquer informação que possa estar errada!',
             placement: 'right',
-            before: () => new Promise(resolve => {
-                setAbaAtiva('conta');
-                setTimeout(resolve, 300);
-            }),
+            tab: 'conta',
         },
-          {
+        {
             target: '#assinatura-card',
-            content: 'Seção de assinatura onde poderar alterar, cancelar e o mais importante RENOVAR sua assinatura!',
+            content: 'Seção de assinatura onde poderá alterar, cancelar e o mais importante RENOVAR sua assinatura!',
             placement: 'right',
-            before: () => new Promise(resolve => {
-                setAbaAtiva('assinatura');
-                setTimeout(resolve, 300);
-            }),
+            tab: 'assinatura',
         },
-          {
+        {
             target: '.painel-tabs',
             content: 'Use estas abas para navegar entre as diferentes seções do seu painel. Explore à vontade!',
             placement: 'bottom',
-            // Este não precisa do 'before' pois as abas estão sempre visíveis
+            // Esta aba está sempre visível, então não precisa de uma propriedade 'tab' específica
         },
     ];
 
-    // Lógica para rodar o tour (permanece a mesma)
+    // Lógica para iniciar o tour (permanece a mesma)
     useEffect(() => {
         const tourJaVisto = localStorage.getItem('tourCompleto');
         if (!tourJaVisto) {
@@ -84,37 +66,51 @@ const TourGuiado = ({ setAbaAtiva }) => {
         }
     }, []);
 
+    // 3. Esta é a nova lógica de controle
     const handleJoyrideCallback = (data) => {
-        const { status } = data;
+        const { action, index, status, type } = data;
+
         if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+            // Se o tour acabou, reseta tudo
             setRunTour(false);
+            setStepIndex(0);
             localStorage.setItem('tourCompleto', 'true');
-            // Opcional: volta para a aba principal ao final do tour
-            setAbaAtiva('dashboard'); 
+            setAbaAtiva('dashboard');
+        } else if (type === EVENTS.STEP_AFTER && action === ACTIONS.NEXT) {
+            // Quando o usuário clica em "NEXT"...
+            const nextStepIndex = index + 1;
+            const nextStep = steps[nextStepIndex];
+
+            if (nextStep && nextStep.tab) {
+                // ...troca a aba para a do próximo passo...
+                setAbaAtiva(nextStep.tab);
+            }
+            // ...e atualiza o nosso índice para avançar o tour.
+            setStepIndex(nextStepIndex);
+        } else if (type === EVENTS.STEP_AFTER && action === ACTIONS.PREV) {
+             // Quando o usuário clica em "VOLTAR"...
+             const prevStepIndex = index - 1;
+             const prevStep = steps[prevStepIndex];
+ 
+             if (prevStep && prevStep.tab) {
+                 setAbaAtiva(prevStep.tab);
+             }
+             setStepIndex(prevStepIndex);
         }
     };
 
     return (
         <Joyride
+            // 4. Passamos nosso índice e a função de callback
+            stepIndex={stepIndex}
             callback={handleJoyrideCallback}
             steps={steps}
             run={runTour}
             continuous={true}
             showProgress={true}
             showSkipButton={true}
-            locale={{
-                back: 'Voltar',
-                close: 'Fechar',
-                last: 'Fim',
-                next: 'Próximo',
-                skip: 'Pular',
-            }}
-            styles={{
-                options: {
-                    zIndex: 10000,
-                    primaryColor: '#1274e4',
-                },
-            }}
+            locale={{ back: 'Voltar', close: 'Fechar', last: 'Fim', next: 'Próximo', skip: 'Pular' }}
+            styles={{ options: { zIndex: 10000, primaryColor: '#1274e4' } }}
         />
     );
 };
