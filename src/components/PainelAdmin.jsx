@@ -540,7 +540,8 @@ const PainelAdmin = () => {
     };
     
     const handleLogout = () => {
-        localStorage.clear();
+        localStorage.removeItem('token');
+        localStorage.removeItem('empresa');
         navigate('/login');
     };
     
