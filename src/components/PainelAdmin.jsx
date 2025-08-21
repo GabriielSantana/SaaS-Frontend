@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './PainelAdmin.css';
 import Dashboard from './Dashboard';
 import AbaAssinatura from "./AbaAssinatura";
+import { subscribeUserToPush } from '../push';
 
 import { API_BASE_URL } from '../api';
 
@@ -403,6 +404,13 @@ const MinhaConta = ({ }) => {
                     <button type="submit" className="btn-primary">Salvar Alterações</button>
                 </div>
             </form>
+            <div className="notificacoes-section">
+                <h3 style={{ marginTop: '30px' }}>Notificações no Navegador</h3>
+                <p>Receba um alerta instantâneo no seu dispositivo sempre que um novo agendamento for feito.</p>
+                <button className="btn-secondary" onClick={subscribeUserToPush}>
+                    Ativar Notificações
+                </button>
+            </div>
         </div>
     );
 };
@@ -413,6 +421,7 @@ const AbaSuporte = ({ }) => {
     const numeroWhatsapp = '5511989924862'; 
     const mensagemWhatsapp = encodeURIComponent("Olá! Preciso de ajuda com a plataforma G2Plannix.");
     const whatsappUrl = `https://wa.me/${numeroWhatsapp}?text=${mensagemWhatsapp}`;
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
