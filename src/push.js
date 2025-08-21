@@ -22,7 +22,13 @@ export async function subscribeUserToPush() {
     }
 
     try {
-        const swRegistration = await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.register('/sw.js');
+        
+        // --- ADIÇÃO CRÍTICA ABAIXO ---
+        // Espera até que um Service Worker esteja ativo e a controlar a página.
+        const swRegistration = await navigator.serviceWorker.ready;
+        // -----------------------------
+
         let subscription = await swRegistration.pushManager.getSubscription();
 
         if (subscription === null) {
@@ -32,7 +38,6 @@ export async function subscribeUserToPush() {
             });
         }
         
-        // Envia a subscrição para o backend
         const token = localStorage.getItem('token');
         await fetch(`${API_BASE_URL}/admin/save-subscription`, {
             method: 'POST',
