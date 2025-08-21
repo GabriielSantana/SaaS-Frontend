@@ -51,7 +51,7 @@ const TourGuiado = ({ setAbaAtiva }) => {
             tab: 'suporte',
         },
         {
-            target: '#assinatura-card',
+            target: '#tab-assinatura',
             content: 'Seção de assinatura onde poderá alterar, cancelar e o mais importante RENOVAR sua assinatura!',
             placement: 'bottom',
             tab: 'assinatura',
@@ -116,7 +116,7 @@ const TourGuiado = ({ setAbaAtiva }) => {
             showProgress={true}
             showSkipButton={true}
             locale={{ back: 'Voltar', close: 'Fechar', last: 'Fim', next: 'Próximo', skip: 'Pular' }}
-            styles={{ options: { zIndex: 10000, primaryColor: '#1274e4' } }}
+            styles={{ options: { zIndex: 10000, primaryColor: '#24e412ff' } }}
         />
     );
 };
