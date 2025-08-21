@@ -12,6 +12,8 @@ import HomePage from './components/HomePage';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword'; 
 import { ToastContainer } from 'react-toastify'; 
+import EmailVerificado from './components/EmailVerificado';
+import VerificacaoFalhou from './components/VerificacaoFalhou';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
