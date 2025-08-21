@@ -1,24 +1,39 @@
-// public/sw.js
+// public/sw.js - VERSÃO MELHORADA
 
 self.addEventListener('push', event => {
-  const data = event.data.json();
-  
+  let notificationData = {
+    title: 'Nova Notificação',
+    body: 'Você recebeu uma nova mensagem.',
+    icon: '/G2Icon 2.png', // Verifique se este ícone existe na sua pasta public
+    url: '/'
+  };
+
+  // Tenta ler os dados como JSON.
+  try {
+    const data = event.data.json();
+    notificationData.title = data.title;
+    notificationData.body = data.body;
+    notificationData.url = data.url;
+  } catch (e) {
+    // Se falhar (porque é texto puro), usa o texto como corpo da notificação.
+    notificationData.body = event.data.text();
+  }
+
   const options = {
-    body: data.body,
-    icon: '/G2Icon 2.png', // Caminho para um ícone na sua pasta public
+    body: notificationData.body,
+    icon: notificationData.icon,
     data: {
-        url: data.url // Guarda a URL para usar no clique
+        url: notificationData.url
     }
   };
 
   event.waitUntil(
-    self.registration.showNotification(data.title, options)
+    self.registration.showNotification(notificationData.title, options)
   );
 });
 
 self.addEventListener('notificationclick', event => {
     event.notification.close();
-    // Abre a URL que guardámos quando a notificação foi criada
     event.waitUntil(
         clients.openWindow(event.notification.data.url)
     );
