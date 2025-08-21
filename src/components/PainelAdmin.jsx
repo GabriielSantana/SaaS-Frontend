@@ -556,25 +556,25 @@ const PainelAdmin = () => {
             </header>
 
             <div className="painel-tabs">
-                <button className={`tab-btn ${abaAtiva === 'dashboard' ? 'active' : ''}`} onClick={() => setAbaAtiva('dashboard')}>Dashboard</button>
-                <button className={`tab-btn ${abaAtiva === 'agendamentos' ? 'active' : ''}`} onClick={() => setAbaAtiva('agendamentos')}>Agendamentos</button>
-                <button className={`tab-btn ${abaAtiva === 'servicos' ? 'active' : ''}`} onClick={() => setAbaAtiva('servicos')}>Serviços</button>
-                <button className={`tab-btn ${abaAtiva === 'horarios' ? 'active' : ''}`} onClick={() => setAbaAtiva('horarios')}>Horários</button>
-                <button className={`tab-btn ${abaAtiva === 'link' ? 'active' : ''}`} onClick={() => setAbaAtiva('link')}>Link</button>
-                <button className={`tab-btn ${abaAtiva === 'conta' ? 'active' : ''}`} onClick={() => setAbaAtiva('conta')}>Minha Conta</button>
-                <button className={`tab-btn ${abaAtiva === 'suporte' ? 'active' : ''}`} onClick={() => setAbaAtiva('suporte')}>Suporte</button>
-                <button className={`tab-btn ${abaAtiva === 'assinatura' ? 'active' : ''}`} onClick={() => setAbaAtiva('assinatura')}>Assinatura</button>
+                <button id="tab-dashboard" className={`tab-btn ${abaAtiva === 'dashboard' ? 'active' : ''}`} onClick={() => setAbaAtiva('dashboard')}>Dashboard</button>
+                <button id="tab-agendamentos" className={`tab-btn ${abaAtiva === 'agendamentos' ? 'active' : ''}`} onClick={() => setAbaAtiva('agendamentos')}>Agendamentos</button>
+                <button id="tab-servicos" className={`tab-btn ${abaAtiva === 'servicos' ? 'active' : ''}`} onClick={() => setAbaAtiva('servicos')}>Serviços</button>
+                <button id="tab-horarios" className={`tab-btn ${abaAtiva === 'horarios' ? 'active' : ''}`} onClick={() => setAbaAtiva('horarios')}>Horários</button>
+                <button id="tab-link" className={`tab-btn ${abaAtiva === 'link' ? 'active' : ''}`} onClick={() => setAbaAtiva('link')}>Link</button>
+                <button id="tab-conta" className={`tab-btn ${abaAtiva === 'conta' ? 'active' : ''}`} onClick={() => setAbaAtiva('conta')}>Minha Conta</button>
+                <button id="tab-suporte" className={`tab-btn ${abaAtiva === 'suporte' ? 'active' : ''}`} onClick={() => setAbaAtiva('suporte')}>Suporte</button>
+                <button id="tab-assinatura" className={`tab-btn ${abaAtiva === 'assinatura' ? 'active' : ''}`} onClick={() => setAbaAtiva('assinatura')}>Assinatura</button>
             </div>
 
            <div className="painel-conteudo">
-                <div id="dashboard-card" className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}><Dashboard /></div>
-                <div id="agendamentos-card" className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
-                <div id="servicos-card" className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
-                <div id="horarios-card" className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
-                <div id="link-card" className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
-                <div id="conta-card" className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
-                <div id="suporte-card" className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
-                <div id="assinatura-card" className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
+                <div className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}><Dashboard /></div>
+                <div className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
+                <div className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
+                <div className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
+                <div className={`painel-section ${abaAtiva === 'link' ? '' : 'hide'} painel-section-center`}><LinkAgendamento empresaSlug={empresaLogada.slug} /></div>
+                <div className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
+                <div className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
+                <div className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
             </div>
         </div>
     );

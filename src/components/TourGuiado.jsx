@@ -9,45 +9,51 @@ const TourGuiado = ({ setAbaAtiva }) => {
     // 2. Simplificamos os passos, adicionando uma propriedade 'tab' para sabermos qual aba ativar
     const steps = [
         {
-            target: '#dashboard-card',
+            target: '#tab-dashboard',
             content: 'Bem-vindo ao seu painel! Aqui você tem uma visão geral rápida do seu negócio.',
             placement: 'bottom',
             tab: 'dashboard', // Aba correspondente
         },
         {
-            target: '#agendamentos-card',
-            content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar a cada agendamento e baixando como planilha!',
-            placement: 'right',
+            target: '#tab-agendamentos',
+            content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar, deletar e podendo baixar como planilha para seus controles mensais!',
+            placement: 'bottom',
             tab: 'agendamentos',
         },
         {
-            target: '#servicos-card',
-            content: 'Aqui você pode adicionar, editar ou remover os serviços que sua empresa oferece.',
-            placement: 'right',
+            target: '#tab-servicos',
+            content: 'Aqui você pode adicionar, editar ou remover os serviços que sua empresa oferece, gerenciando preços e tempo de cada um!',
+            placement: 'bottom',
             tab: 'servicos',
         },
         {
-            target: '#horarios-card',
-            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente...',
-            placement: 'right',
+            target: '#tab-horarios',
+            content: 'Aqui você decide quando irá trabalhar! adicione horarios por expediente, como por exemplo: Segunda das 09:00 as 12:00 e depois adicionar novamente Segunda porém das 13:00 as 18:00, isso faz com que tenha 01(uma) hora livre que seria das 12:00 as 13:00',
+            placement: 'bottom',
             tab: 'horarios',
         },
         {
-            target: '#link-card',
+            target: '#tab-link',
             content: 'Este é o seu link mágico! Copie e compartilhe com seus clientes para que eles possam agendar um horário.',
             placement: 'bottom',
             tab: 'link',
         },
         {
-            target: '#conta-card',
+            target: '#tab-conta',
             content: 'Aqui você visualiza seu cadastro e edita qualquer informação que possa estar errada!',
-            placement: 'right',
+            placement: 'bottom',
             tab: 'conta',
+        },
+        {
+            target: '#tab-suporte',
+            content: 'Aqui você abre chamados por E-mail ou diretamente com o Desenvolvedor, tenha sempre que puder o print ou codigo do Erro!',
+            placement: 'bottom',
+            tab: 'suporte',
         },
         {
             target: '#assinatura-card',
             content: 'Seção de assinatura onde poderá alterar, cancelar e o mais importante RENOVAR sua assinatura!',
-            placement: 'right',
+            placement: 'bottom',
             tab: 'assinatura',
         },
         {
