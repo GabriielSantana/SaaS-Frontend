@@ -8,8 +8,12 @@ import AbaAssinatura from "./AbaAssinatura";
 import { subscribeUserToPush } from '../push';
 import AbaTutorial from './AbaTutorial';
 import TourGuiado from './TourGuiado'; 
+import Swal from 'sweetalert2'; 
+import withReactContent from 'sweetalert2-react-content';
 
 import { API_BASE_URL } from '../api';
+
+const MySwal = withReactContent(Swal);
 
 // ===================================================================
 // == SEÇÃO DE SUB-COMPONENTES DO PAINEL ==
@@ -50,8 +54,8 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
         }
     };
 
-    const handleDelete = async (servicoId) => {
-        if (!window.confirm('Tem certeza?')) return;
+  const handleDelete = (servicoId) => {
+    showConfirmationDialog(async () => {
         const token = localStorage.getItem('token');
         try {
             const res = await fetch(`${API_BASE_URL}/admin/servicos/${servicoId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
@@ -63,7 +67,8 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
             toast.error('Erro ao excluir serviço.');
             console.error(error);
         }
-    };
+    });
+};
 
     return (
         <div className="admin-card">
@@ -144,8 +149,8 @@ const ListaAgendamentos = ({ agendamentos, onUpdate}) => {
          }
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Tem certeza?')) return;
+const handleDelete = (id) => {
+    showConfirmationDialog(async () => {
         const token = localStorage.getItem('token');
         try {
             const res = await fetch(`${API_BASE_URL}/admin/agendamentos/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
@@ -157,8 +162,8 @@ const ListaAgendamentos = ({ agendamentos, onUpdate}) => {
             toast.error('Erro ao excluir agendamento.');
             console.error(error);
         }
-    };
-
+    });
+};
     return (
         <div className="admin-card">
             <div className="admin-card-header">
@@ -239,20 +244,23 @@ const EditorHorarios = ({ horarios, empresaId, onUpdate }) => {
         }
     };
     
-    const handleDelete = async (horarioId) => {
-        if (!window.confirm('Tem certeza?')) return;
-        const token = localStorage.getItem('token');
-        try {
-            const res = await fetch(`${API_BASE_URL}/admin/horarios/${horarioId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
-            if (res.ok) {
-                toast.success('Horário excluído com sucesso!');
-                onUpdate();
-            } else throw new Error('Falha ao excluir horário');
-        } catch (error) {
-            toast.error('Erro ao excluir horário.');
-            console.error(error);
-        }
-    };
+   // Dentro do componente EditorHorarios
+
+        const handleDelete = (horarioId) => {
+            showConfirmationDialog(async () => {
+                const token = localStorage.getItem('token');
+                try {
+                    const res = await fetch(`${API_BASE_URL}/admin/horarios/${horarioId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+                    if (res.ok) {
+                        toast.success('Horário excluído com sucesso!');
+                        onUpdate();
+                    } else throw new Error('Falha ao excluir horário');
+                } catch (error) {
+                    toast.error('Erro ao excluir horário.');
+                    console.error(error);
+                }
+            });
+        };
 
     return (
         <div className="admin-card">
@@ -498,6 +506,23 @@ const PainelAdmin = () => {
     const [horarios, setHorarios] = useState([]);
     const [abaAtiva, setAbaAtiva] = useState('dashboard');
     const navigate = useNavigate();
+
+      const showConfirmationDialog = (onConfirm) => {
+        MySwal.fire({
+            title: 'Você tem certeza?',
+            text: "Esta ação não poderá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                onConfirm(); // Executa a função de exclusão se o usuário confirmar
+            }
+        });
+    };
 
     useEffect(() => {
         const empresa = JSON.parse(localStorage.getItem('empresa'));
