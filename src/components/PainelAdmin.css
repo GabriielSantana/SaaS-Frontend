@@ -470,6 +470,17 @@ height: auto;
   color: #3498db;
 }
 
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
 .dashboard-grid-diario {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -507,15 +518,18 @@ height: auto;
   padding-bottom: 10px;
 }
 
-.date-picker-container .custom-datepicker {
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-datepicker {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
   text-align: center;
-  cursor: pointer; /* Melhora a experiência do usuário */
-  background-color: white; /* Garante um fundo branco */
-  width: 120px; /* Define uma largura fixa */
 }
 
 @media (min-width: 768px) {
