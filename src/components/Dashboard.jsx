@@ -9,12 +9,13 @@ const Dashboard = ({ agendamentos }) => {
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
   // A lógica de filtro que já tínhamos
-  const agendamentosFiltrados = agendamentos.filter((ag) => {
-    const dataAgendamento = new Date(ag.data).toLocaleDateString();
-    const dataFiltro = dataSelecionada.toLocaleDateString();
-    return dataAgendamento === dataFiltro && ag.status === 'confirmado'; // Considera apenas agendamentos confirmados
-  });
-
+const agendamentosFiltrados = agendamentos.filter((ag) => {
+  // Formata a data do agendamento vinda do banco em UTC
+  const dataAgendamento = new Date(ag.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+  // Formata a data selecionada no calendário também em UTC para garantir a comparação correta
+  const dataFiltro = dataSelecionada.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+  return dataAgendamento === dataFiltro && ag.status === 'confirmado';
+});
 
   // 1. Cálculo do Faturamento do Dia
     const faturamentoDoDia = agendamentosFiltrados.reduce((total, ag) => {
