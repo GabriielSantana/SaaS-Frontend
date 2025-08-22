@@ -56,6 +56,12 @@ const TourGuiado = ({ setAbaAtiva }) => {
             placement: 'bottom',
             tab: 'conta',
         },
+         {
+            target: '#btn-notificacao',
+            content: 'Aqui você ativa as notificaçòes em tempo real dos seus agendamentos.',
+            placement: 'bottom',
+            tab: 'conta',
+        },
         {
             target: '#tab-suporte',
             content: 'Aqui você abre chamados por E-mail ou diretamente com o Desenvolvedor, tenha sempre que puder o print ou codigo do Erro!',

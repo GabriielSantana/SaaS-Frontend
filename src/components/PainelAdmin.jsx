@@ -435,7 +435,7 @@ const MinhaConta = ({ }) => {
             <div className="notificacoes-section">
                 <h3 style={{ marginTop: '30px' }}>Notificações no Navegador</h3>
                 <p>Receba um alerta instantâneo no seu dispositivo sempre que um novo agendamento for feito.</p>
-                <button className="btn-secondary" onClick={subscribeUserToPush}>
+                <button className="btn-secondary" onClick={subscribeUserToPush} id="btn-notificacao">
                     Ativar Notificações
                 </button>
             </div>
