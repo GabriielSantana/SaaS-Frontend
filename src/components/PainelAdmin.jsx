@@ -206,7 +206,7 @@ const handleDelete = (id) => {
                                 <tr key={ag.id}>
                                     <td>{ag.nome_cliente}</td>
                                     <td>{ag.nome_servico}</td>
-                                    <td>{new Date(ag.data).toLocaleDateString()}</td>
+                                    <td>{new Date(ag.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</td>
                                     <td>{ag.hora.substring(0, 5)}</td>
                                     <td><span className={`status-tag ${ag.status}`}>{ag.status}</span></td>
                                     <td>
