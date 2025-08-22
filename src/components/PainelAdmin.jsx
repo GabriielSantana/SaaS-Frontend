@@ -15,6 +15,23 @@ import { API_BASE_URL } from '../api';
 
 const MySwal = withReactContent(Swal);
 
+ const showConfirmationDialog = (onConfirm) => {
+        MySwal.fire({
+            title: 'Você tem certeza?',
+            text: "Esta ação não poderá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                onConfirm(); // Executa a função de exclusão se o usuário confirmar
+            }
+        });
+    };
+
 // ===================================================================
 // == SEÇÃO DE SUB-COMPONENTES DO PAINEL ==
 // ===================================================================
@@ -506,23 +523,6 @@ const PainelAdmin = () => {
     const [horarios, setHorarios] = useState([]);
     const [abaAtiva, setAbaAtiva] = useState('dashboard');
     const navigate = useNavigate();
-
-      const showConfirmationDialog = (onConfirm) => {
-        MySwal.fire({
-            title: 'Você tem certeza?',
-            text: "Esta ação não poderá ser revertida!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, excluir!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                onConfirm(); // Executa a função de exclusão se o usuário confirmar
-            }
-        });
-    };
 
     useEffect(() => {
         const empresa = JSON.parse(localStorage.getItem('empresa'));
