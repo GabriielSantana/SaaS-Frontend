@@ -97,8 +97,8 @@ const Dashboard = ({ agendamentos }) => {
                         </div>
 
                         <div className="info-item">
-                            <span className="label">Telefone</span>
-                            <span className="value">{ag.telefone_cliente || 'N/A'}</span>
+                            <span className="label">Serviço</span>
+                            <span className="value servico">{ag.nome_servico}</span>
                         </div>
 
                         <div className="info-item">
