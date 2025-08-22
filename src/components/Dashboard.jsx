@@ -50,7 +50,7 @@ const Dashboard = ({ agendamentos }) => {
             day: 'numeric',
           })}
         </h3>
-        <div className="date-picker-container">
+        <div className="date-picker-container" id="date-dashboard">
           <label>Selecionar outra data:</label>
           <DatePicker
             selected={dataSelecionada}

@@ -185,7 +185,7 @@ const handleDelete = (id) => {
         <div className="admin-card">
             <div className="admin-card-header">
                 <h2>Agendamentos Recebidos</h2>
-                <button className="btn-secondary" onClick={handleDownloadExcel}>Baixar em Excel</button>
+                <button className="btn-secondary" onClick={handleDownloadExcel} id="tab-excel">Baixar em Excel</button>
             </div>
             
             <div className="lista-agendamentos">

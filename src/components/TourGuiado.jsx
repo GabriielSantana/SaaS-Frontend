@@ -15,8 +15,20 @@ const TourGuiado = ({ setAbaAtiva }) => {
             tab: 'dashboard', 
         },
         {
+            target: '#date-dashboard',
+            content: 'Aqui você seleciona a data para ver as metricas relacionadas!',
+            placement: 'bottom',
+            tab: 'dashboard', 
+        },
+        {
             target: '#tab-agendamentos',
             content: 'Nesta seção, você pode ver e gerenciar todos os agendamentos recebidos, podendo confirmar, deletar e podendo baixar como planilha para seus controles mensais!',
+            placement: 'bottom',
+            tab: 'agendamentos',
+        },
+          {
+            target: '#tab-excel',
+            content: 'Neste botão você baixa todos os seus agendamentos em excel caso desejar!',
             placement: 'bottom',
             tab: 'agendamentos',
         },
