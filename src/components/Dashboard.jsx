@@ -81,37 +81,43 @@ const Dashboard = ({ agendamentos }) => {
         Agendamentos do Dia
       </h4>
 
-      <div className="lista-agendamentos-dashboard">
-            {agendamentosFiltrados.length > 0 ? (
-                <>
-                    {/* Adicionando um cabeçalho para as colunas */}
-                    <div className="lista-header-dashboard">
-                        <span className="horario">Horário</span>
-                        <span className="cliente">Cliente</span>
-                        <span className="telefone">Telefone</span>
-                        <span className="valor">Valor</span>
-                        <span className="status-tag-header">Status</span>
-                    </div>
+            <div className="lista-agendamentos-dashboard">
+                {agendamentosFiltrados.length > 0 ? (
                     <ul>
-                        {agendamentosFiltrados.map((ag) => (
-                            <li key={ag.id}>
-                                <span className="horario">{ag.hora.substring(0, 5)}</span>
-                                <span className="cliente">{ag.nome_cliente}</span>
-                                {/* NOVO: Telefone do cliente */}
-                                <span className="telefone">{ag.telefone_cliente || 'N/A'}</span>
-                                {/* NOVO: Valor do serviço */}
-                                <span className="valor">R$ {parseFloat(ag.preco_servico).toFixed(2)}</span>
-                                {/* Status que já existia */}
-                                <span className={`status-tag ${ag.status}`}>{ag.status}</span>
-                            </li>
-                        ))}
+                    {agendamentosFiltrados.map((ag) => (
+                        <li key={ag.id}>
+                        <div className="info-item">
+                            <span className="label">Horário</span>
+                            <span className="value horario">{ag.hora.substring(0, 5)}</span>
+                        </div>
+
+                        <div className="info-item">
+                            <span className="label">Cliente</span>
+                            <span className="value">{ag.nome_cliente}</span>
+                        </div>
+
+                        <div className="info-item">
+                            <span className="label">Telefone</span>
+                            <span className="value">{ag.telefone_cliente || 'N/A'}</span>
+                        </div>
+
+                        <div className="info-item">
+                            <span className="label">Valor</span>
+                            <span className="value valor">R$ {parseFloat(ag.preco_servico).toFixed(2)}</span>
+                        </div>
+
+                        <div className="info-item status-container">
+                            <span className="label">Status</span>
+                            <span className={`status-tag ${ag.status}`}>{ag.status}</span>
+                        </div>
+                        </li>
+                    ))}
                     </ul>
-                </>
-            ) : (
-                <p className="nenhum-agendamento">
+                ) : (
+                    <p className="nenhum-agendamento">
                     Nenhum agendamento confirmado para esta data.
-                </p>
-            )}
+                    </p>
+                )}
         </div>
     </div>
   );

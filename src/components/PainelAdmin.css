@@ -471,80 +471,72 @@ height: auto;
 }
 
 .lista-header-dashboard {
-  display: flex;
-  padding: 10px;
-  font-weight: bold;
-  color: #7f8c8d;
-  border-bottom: 2px solid #e0e0e0;
-  margin-bottom: 5px;
-  gap: 15px; /* Mesmo espaçamento dos itens */
-  font-size: 0.9rem;
-  text-transform: uppercase;
+  display: none;
 }
 
 .lista-agendamentos-dashboard ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaço entre os cards de agendamento */
 }
 
+/* O card principal de cada agendamento */
 .lista-agendamentos-dashboard li {
   display: flex;
-  align-items: center;
-  padding: 15px 10px;
-  border-bottom: 1px solid #f0f0f0;
-  gap: 15px;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f7;
+  transition: all 0.3s ease;
 }
 
-.lista-agendamentos-dashboard li:last-child {
-  border-bottom: none;
+.lista-agendamentos-dashboard li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* --- ESTILOS E LARGURAS PARA CADA "COLUNA" --- */
-
-.lista-agendamentos-dashboard .horario,
-.lista-header-dashboard .horario {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: rgb(18, 116, 228);
-  flex-basis: 80px;
-  flex-shrink: 0;
-}
-
-.lista-agendamentos-dashboard .cliente,
-.lista-header-dashboard .cliente {
-  font-weight: 500;
-  flex-grow: 1; /* Ocupa o espaço que sobrar */
+/* Estilo para cada pedaço de informação dentro do card */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
   min-width: 150px;
+  flex-grow: 1;
 }
 
-.lista-agendamentos-dashboard .telefone,
-.lista-header-dashboard .telefone {
-  color: #34495e;
-  flex-basis: 140px; /* Largura para o telefone */
-  flex-shrink: 0;
+.info-item .label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
-.lista-agendamentos-dashboard .valor,
-.lista-header-dashboard .valor {
+.info-item .value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+/* Destaques especiais para horário e valor */
+.info-item .value.horario {
+  font-weight: bold;
+  color: rgb(18, 116, 228);
+  font-size: 1.3rem;
+}
+
+.info-item .value.valor {
   font-weight: bold;
   color: #27ae60;
-  flex-basis: 100px; /* Largura para o valor */
-  flex-shrink: 0;
-  text-align: left;
 }
 
-.lista-agendamentos-dashboard .status-tag,
-.lista-header-dashboard .status-tag-header {
-  flex-basis: 110px;
-  flex-shrink: 0;
-  text-align: center;
-}
-
-/* Alinhamento especial para o header do status */
-.lista-header-dashboard .status-tag-header {
-    text-align: center;
-    padding-right: 10px; /* Ajuste fino */
+/* O status-tag já tem estilo, mas garantimos que ele se alinhe bem */
+.info-item.status-container {
+  align-items: flex-start; /* Alinha o label e a tag no topo */
 }
 
 .nenhum-agendamento {
@@ -552,6 +544,8 @@ height: auto;
   padding: 40px;
   color: #7f8c8d;
   font-size: 1.1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
 }
 
 @media (min-width: 768px) {
