@@ -470,66 +470,88 @@ height: auto;
   color: #3498db;
 }
 
-.dashboard-header {
+.lista-header-dashboard {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-}
-
-.dashboard-grid-diario {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.dashboard-card-diario {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  border: 1px solid #eee;
-}
-
-.dashboard-card-diario h4 {
-  margin: 0 0 10px 0;
-  font-size: 1rem;
-  color: #7f8c8d;
-  font-weight: 500;
-}
-
-.dashboard-card-diario p {
-  margin: 0;
-  font-size: 1.8rem;
+  padding: 10px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #7f8c8d;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 5px;
+  gap: 15px; /* Mesmo espaçamento dos itens */
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
-.titulo-lista-agendamentos {
-  font-size: 1.2rem;
-  color: #2c3e50;
-  margin-top: 20px;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 10px;
+.lista-agendamentos-dashboard ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-.date-picker-container {
+.lista-agendamentos-dashboard li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 15px;
 }
 
-.custom-datepicker {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
+.lista-agendamentos-dashboard li:last-child {
+  border-bottom: none;
+}
+
+/* --- ESTILOS E LARGURAS PARA CADA "COLUNA" --- */
+
+.lista-agendamentos-dashboard .horario,
+.lista-header-dashboard .horario {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(18, 116, 228);
+  flex-basis: 80px;
+  flex-shrink: 0;
+}
+
+.lista-agendamentos-dashboard .cliente,
+.lista-header-dashboard .cliente {
+  font-weight: 500;
+  flex-grow: 1; /* Ocupa o espaço que sobrar */
+  min-width: 150px;
+}
+
+.lista-agendamentos-dashboard .telefone,
+.lista-header-dashboard .telefone {
+  color: #34495e;
+  flex-basis: 140px; /* Largura para o telefone */
+  flex-shrink: 0;
+}
+
+.lista-agendamentos-dashboard .valor,
+.lista-header-dashboard .valor {
+  font-weight: bold;
+  color: #27ae60;
+  flex-basis: 100px; /* Largura para o valor */
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.lista-agendamentos-dashboard .status-tag,
+.lista-header-dashboard .status-tag-header {
+  flex-basis: 110px;
+  flex-shrink: 0;
   text-align: center;
+}
+
+/* Alinhamento especial para o header do status */
+.lista-header-dashboard .status-tag-header {
+    text-align: center;
+    padding-right: 10px; /* Ajuste fino */
+}
+
+.nenhum-agendamento {
+  text-align: center;
+  padding: 40px;
+  color: #7f8c8d;
+  font-size: 1.1rem;
 }
 
 @media (min-width: 768px) {
