@@ -1,74 +1,107 @@
-// src/components/Dashboard.jsx
-
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css'; // Criaremos este arquivo a seguir
+import './Dashboard.css'; 
+import DatePicker from 'react-datepicker' 
+import 'react-datepicker/dist/react-datepicker.css'
 
 import { API_BASE_URL } from '../api';
 
-// Ícones simples para os cards
-const IconeCalendario = () => <span>📅</span>;
-const IconeDinheiro = () => <span>💰</span>;
-const IconeEstrela = () => <span>⭐</span>;
+const Dashboard = ({ agendamentos }) => {
+  const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
-const Dashboard = ({ setMensagem }) => {
-    const [stats, setStats] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+  // A lógica de filtro que já tínhamos
+  const agendamentosFiltrados = agendamentos.filter((ag) => {
+    const dataAgendamento = new Date(ag.data).toLocaleDateString();
+    const dataFiltro = dataSelecionada.toLocaleDateString();
+    return dataAgendamento === dataFiltro && ag.status === 'confirmado'; // Considera apenas agendamentos confirmados
+  });
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            const token = localStorage.getItem('token');
-            try {
-                const res = await fetch(`${API_BASE_URL}/admin/dashboard-stats`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (!res.ok) throw new Error('Falha ao carregar estatísticas.');
-                const data = await res.json();
-                setStats(data);
-            } catch (error) {
-                console.error(error);
-                setMensagem({ texto: error.message, tipo: 'erro' });
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchStats();
-    }, [setMensagem]);
 
-    if (isLoading) {
-        return <div className="loading-container">Carregando dashboard...</div>;
+  // 1. Cálculo do Faturamento do Dia
+    const faturamentoDoDia = agendamentosFiltrados.reduce((total, ag) => {
+    const precoServico = parseFloat(preco || 0); // Use o nome correto da propriedade do preço
+    return total + precoServico;
+  }, 0);
+
+  // 2. Cálculo do Serviço Mais Popular do Dia
+  const servicoMaisPopularDoDia = () => {
+    if (agendamentosFiltrados.length === 0) {
+      return 'Nenhum';
     }
 
-    if (!stats) {
-        return <div className="admin-card">Não foi possível carregar os dados do dashboard.</div>
-    }
+    const contagemServicos = agendamentosFiltrados.reduce((acc, ag) => {
+      acc[ag.nome_servico] = (acc[ag.nome_servico] || 0) + 1;
+      return acc;
+    }, {});
 
-    return (
-        <div className="dashboard-grid">
-            <div className="dashboard-card">
-                <div className="card-icon"><IconeCalendario /></div>
-                <div className="card-content">
-                    <h3>Agendamentos Hoje</h3>
-                    <p className="card-value">{stats.agendamentosHoje}</p>
-                </div>
-            </div>
-
-            <div className="dashboard-card">
-                <div className="card-icon"><IconeDinheiro /></div>
-                <div className="card-content">
-                    <h3>Faturamento do Mês</h3>
-                    <p className="card-value">R$ {parseFloat(stats.faturamentoMes).toFixed(2)}</p>
-                </div>
-            </div>
-
-            <div className="dashboard-card">
-                <div className="card-icon"><IconeEstrela /></div>
-                <div className="card-content">
-                    <h3>Serviço Popular</h3>
-                    <p className="card-value">{stats.servicoMaisAgendado}</p>
-                </div>
-            </div>
-        </div>
+    return Object.keys(contagemServicos).reduce((a, b) =>
+      contagemServicos[a] > contagemServicos[b] ? a : b
     );
+  };
+
+  return (
+    <div className="admin-card">
+      <div className="dashboard-header">
+        <h3>
+          Resumo de{' '}
+          {dataSelecionada.toLocaleDateString('pt-BR', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </h3>
+        <div className="date-picker-container">
+          <label>Selecionar outra data:</label>
+          <DatePicker
+            selected={dataSelecionada}
+            onChange={(date) => setDataSelecionada(date)}
+            dateFormat="dd/MM/yyyy"
+            className="custom-datepicker"
+          />
+        </div>
+      </div>
+
+      {/* Grid para as métricas do dia */}
+      <div className="dashboard-grid-diario">
+        <div className="dashboard-card-diario">
+          <h4>Agendamentos no Dia</h4>
+          <p>{agendamentosFiltrados.length}</p>
+        </div>
+        <div className="dashboard-card-diario">
+          <h4>Faturamento no Dia</h4>
+          <p>R$ {faturamentoDoDia.toFixed(2)}</p>
+        </div>
+        <div className="dashboard-card-diario">
+          <h4>Serviço Popular do Dia</h4>
+          <p>{servicoMaisPopularDoDia()}</p>
+        </div>
+      </div>
+
+      <h4 className="titulo-lista-agendamentos">
+        Agendamentos do Dia
+      </h4>
+
+      <div className="lista-agendamentos-dashboard">
+        {agendamentosFiltrados.length > 0 ? (
+          <ul>
+            {agendamentosFiltrados.map((ag) => (
+              <li key={ag.id}>
+                <span className="horario">{ag.hora.substring(0, 5)}</span>
+                <span className="cliente">{ag.nome_cliente}</span>
+                <span className="servico">{ag.nome_servico}</span>
+                <span className={`status-tag ${ag.status}`}>{ag.status}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="nenhum-agendamento">
+            Nenhum agendamento confirmado para esta data.
+          </p>
+        )}
+      </div>
+    </div>
+  );
 };
+
 
 export default Dashboard;

@@ -10,9 +10,9 @@ const TourGuiado = ({ setAbaAtiva }) => {
     const steps = [
         {
             target: '#tab-dashboard',
-            content: 'Bem-vindo ao seu painel! Aqui você tem uma visão geral rápida do seu negócio.',
+            content: 'Bem-vindo ao seu painel! Aqui você tem uma visão geral dos agendamentos e faturamentos do dia.',
             placement: 'bottom',
-            tab: 'dashboard', // Aba correspondente
+            tab: 'dashboard', 
         },
         {
             target: '#tab-agendamentos',

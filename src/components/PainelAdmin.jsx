@@ -597,7 +597,9 @@ const PainelAdmin = () => {
             </div>
 
            <div className="painel-conteudo">
-                <div className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}><Dashboard /></div>
+                <div id="dashboard-card" className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}>
+                    <Dashboard agendamentos={agendamentos} />
+                </div>
                 <div className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
                 <div className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
                 <div className={`painel-section ${abaAtiva === 'horarios' ? '' : 'hide'}`}><EditorHorarios horarios={horarios} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
