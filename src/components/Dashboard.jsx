@@ -18,7 +18,7 @@ const Dashboard = ({ agendamentos }) => {
 
   // 1. Cálculo do Faturamento do Dia
     const faturamentoDoDia = agendamentosFiltrados.reduce((total, ag) => {
-    const precoServico = parseFloat(preco || 0); // Use o nome correto da propriedade do preço
+    const precoServico = parseFloat(ag.preco_servico || 0);
     return total + precoServico;
   }, 0);
 
