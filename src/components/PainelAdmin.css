@@ -470,78 +470,52 @@ height: auto;
   color: #3498db;
 }
 
-/* Em PainelAdmin.css */
-
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+.dashboard-grid-diario {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.dashboard-header h3 {
+.dashboard-card-diario {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.dashboard-card-diario h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.dashboard-card-diario p {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   color: #2c3e50;
 }
 
-.date-picker-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.titulo-lista-agendamentos {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-top: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
 }
 
-.custom-datepicker {
+.date-picker-container .custom-datepicker {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
   text-align: center;
-}
-
-.lista-agendamentos-dashboard ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.lista-agendamentos-dashboard li {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 10px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.lista-agendamentos-dashboard li:last-child {
-  border-bottom: none;
-}
-
-.lista-agendamentos-dashboard .horario {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: rgb(18, 116, 228);
-  min-width: 60px;
-}
-
-.lista-agendamentos-dashboard .cliente {
-  font-weight: 500;
-  flex-grow: 1;
-}
-
-.lista-agendamentos-dashboard .servico {
-  color: #7f8c8d;
-}
-
-.nenhum-agendamento {
-  text-align: center;
-  padding: 40px;
-  color: #7f8c8d;
-  font-size: 1.1rem;
+  cursor: pointer; /* Melhora a experiência do usuário */
+  background-color: white; /* Garante um fundo branco */
+  width: 120px; /* Define uma largura fixa */
 }
 
 @media (min-width: 768px) {
