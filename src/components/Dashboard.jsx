@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import { API_BASE_URL } from '../api';
 
-const Dashboard = ({ agendamentos }) => {
+const Dashboard = ({ agendamentos, formatarNome }) => {
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
   // A lógica de filtro que já tínhamos
@@ -94,7 +94,7 @@ const agendamentosFiltrados = agendamentos.filter((ag) => {
 
                         <div className="info-item">
                             <span className="label">Cliente</span>
-                            <span className="value">{ag.nome_cliente}</span>
+                           <span className="value">{formatarNome(ag.nome_cliente)}</span>
                         </div>
 
                         <div className="info-item">

@@ -32,6 +32,19 @@ const MySwal = withReactContent(Swal);
         });
     };
 
+    const formatarNomeCliente = (nomeCompleto) => {
+    if (!nomeCompleto || typeof nomeCompleto !== 'string') {
+        return ''; // Retorna vazio se o nome não for válido
+    }
+    const partesNome = nomeCompleto.trim().split(' ');
+    const primeiroNome = partesNome[0];
+    if (partesNome.length > 1) {
+        const inicialSobrenome = partesNome[partesNome.length - 1].charAt(0);
+        return `${primeiroNome} ${inicialSobrenome}.`;
+    }
+    return primeiroNome; // Retorna apenas o primeiro nome se não houver sobrenome
+};
+
 // ===================================================================
 // == SEÇÃO DE SUB-COMPONENTES DO PAINEL ==
 // ===================================================================
@@ -618,7 +631,10 @@ const PainelAdmin = () => {
 
            <div className="painel-conteudo">
                 <div id="dashboard-card" className={`painel-section ${abaAtiva === 'dashboard' ? '' : 'hide'}`}>
-                    <Dashboard agendamentos={agendamentos} />
+                    <Dashboard 
+                        agendamentos={agendamentos} 
+                        formatarNome={formatarNomeCliente} 
+                    />
                 </div>
                 <div className={`painel-section ${abaAtiva === 'agendamentos' ? '' : 'hide'}`}><ListaAgendamentos agendamentos={agendamentos} onUpdate={onUpdate} /></div>
                 <div className={`painel-section ${abaAtiva === 'servicos' ? '' : 'hide'}`}><GerenciadorServicos servicos={servicos} empresaId={empresaLogada.id} onUpdate={onUpdate} /></div>
