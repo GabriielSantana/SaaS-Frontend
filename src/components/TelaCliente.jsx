@@ -111,14 +111,12 @@ const TelaCliente = () => {
         const dataFormatadaParaEnvio = dataSelecionada.toISOString().split('T')[0];
         
         const agendamento = {
-            // CORREÇÃO 4: Usa 'empresa.id'
-            empresa_id: empresa.id,
-            servico_id: servicoSelecionado.id,
-            data: dataFormatadaParaEnvio,
-            hora: horaSelecionada,
-            nome_cliente: agendamentoInfo.nome_cliente,
-            email_cliente: agendamentoInfo.email_cliente,
-        };
+        empresa_id: empresa.id,
+        servico_id: servicoSelecionado.id,
+        data: dataFormatadaParaEnvio,
+        hora: horaSelecionada,
+        ...agendamentoInfo 
+    };
 
         try {
             const response = await fetch(`${API_BASE_URL}/public/agendamentos`, {
@@ -133,7 +131,7 @@ const TelaCliente = () => {
                 setServicoSelecionado(null);
                 setDataSelecionada(null);
                 setHoraSelecionada('');
-                setAgendamentoInfo({ nome_cliente: '', email_cliente: '' });
+                setAgendamentoInfo({ nome_cliente: '', email_cliente: '', telefone_cliente: '' });
                 setHorariosDisponiveis([]);
                 setDiasDisponiveis([]);
                 setAbaAberta(null);
