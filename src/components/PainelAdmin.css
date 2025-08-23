@@ -228,6 +228,26 @@
     border-collapse: collapse;
 }
 
+.btn-whatsapp-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #25D366;
+  color: white;
+  border: none;
+  border-radius: 50%; /* Deixa o botão redondo */
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove sublinhado do link */
+}
+
+.btn-whatsapp-item:hover {
+  background-color: #1DA851;
+}
+
 .lista-agendamentos th, .lista-agendamentos td {
     padding: 15px;
     text-align: left;

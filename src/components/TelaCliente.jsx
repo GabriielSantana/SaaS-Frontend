@@ -14,7 +14,7 @@ const TelaCliente = () => {
     const [dataSelecionada, setDataSelecionada] = useState(null);
     const [horariosDisponiveis, setHorariosDisponiveis] = useState([]);
     const [horaSelecionada, setHoraSelecionada] = useState('');
-    const [agendamentoInfo, setAgendamentoInfo] = useState({ nome_cliente: '', email_cliente: '' });
+    const [agendamentoInfo, setAgendamentoInfo] = useState({ nome_cliente: '', email_cliente: '', telefone_cliente: '' });
     const [abaAberta, setAbaAberta] = useState(null); 
     const [diasDisponiveis, setDiasDisponiveis] = useState([]);
     const [dataAtiva, setDataAtiva] = useState(new Date());
@@ -214,6 +214,10 @@ const TelaCliente = () => {
                             <div className="form-group">
                                 <label htmlFor="email_cliente">Seu E-mail:</label>
                                 <input type="email" id="email_cliente" name="email_cliente" value={agendamentoInfo.email_cliente} onChange={handleAgendamentoChange} required />
+                            </div>
+                             <div className="form-group">
+                                <label htmlFor="telefone_cliente">Seu WhatsApp (com DDD):</label>
+                                <input type="tel" id="telefone_cliente" name="telefone_cliente" value={agendamentoInfo.telefone_cliente} onChange={handleAgendamentoChange} placeholder="Ex: 11987654321" required />
                             </div>
                             <button type="submit" className="btn-confirmar">Confirmar Agendamento</button>
                         </>
