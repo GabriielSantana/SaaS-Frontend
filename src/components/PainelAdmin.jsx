@@ -210,21 +210,20 @@ const handleDelete = (id) => {
                                     <td>{new Date(ag.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</td>
                                     <td>{ag.hora.substring(0, 5)}</td>
                                     <td>{ag.telefone_cliente || 'N/A'}</td>
+                                            {ag.telefone_cliente && (
+                                                        <a
+                                                            href={`https://wa.me/55${ag.telefone_cliente.replace(/\D/g, '')}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn-whatsapp-item"
+                                                            title="Chamar no WhatsApp"
+                                                        >
+                                                            <FaWhatsapp />
+                                                        </a>
+                                                    )}
                                     <td><span className={`status-tag ${ag.status}`}>{ag.status}</span></td>
                                     <td>
                                         <div className="item-actions">
-                                            {/* NOVO BOTÃO DE WHATSAPP */}
-                                            {ag.telefone_cliente && (
-                                                <a
-                                                    href={`https://wa.me/55${ag.telefone_cliente.replace(/\D/g, '')}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="btn-whatsapp-item"
-                                                    title="Chamar no WhatsApp"
-                                                >
-                                                    <FaWhatsapp />
-                                                </a>
-                                            )}
                                             {ag.status === 'pendente' && (
                                                 <button className="btn-confirmar" onClick={() => handleStatusUpdate(ag.id, 'confirmado')}>Confirmar</button>
                                             )}

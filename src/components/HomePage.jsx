@@ -53,7 +53,7 @@ const HomePage = () => {
             <section className="creator-section">
                 <h2>Uma Ferramenta Criada por Gabriel Gomes</h2>
                 <p>Feita para simplificar a vida de empreendedores como você.</p>
-                <a href="https://www.instagram.com/grbxzs" target="_blank" rel="noopener noreferrer" className="instagram-button"> 
+                <a href="https://www.instagram.com/g2plannix" target="_blank" rel="noopener noreferrer" className="instagram-button"> 
                 <FaInstagram size={20} style={{ marginRight: '15px' }} />Siga no Instagram</a>
             </section>
 
