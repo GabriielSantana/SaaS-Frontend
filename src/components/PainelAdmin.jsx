@@ -209,18 +209,25 @@ const handleDelete = (id) => {
                                     <td>{ag.nome_servico}</td>
                                     <td>{new Date(ag.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</td>
                                     <td>{ag.hora.substring(0, 5)}</td>
-                                    <td>{ag.telefone_cliente || 'N/A'}</td>
-                                            {ag.telefone_cliente && (
-                                                        <a
-                                                            href={`https://wa.me/55${ag.telefone_cliente.replace(/\D/g, '')}`}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="btn-whatsapp-item"
-                                                            title="Chamar no WhatsApp"
-                                                        >
-                                                            <FaWhatsapp />
-                                                        </a>
-                                                    )}
+                                    <td>
+                                        {ag.telefone_cliente ? (
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                {ag.telefone_cliente}
+                                                <a
+                                                    href={`https://wa.me/55${ag.telefone_cliente.replace(/\D/g, '')}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn-whatsapp-item-inline"
+                                                    title="Chamar no WhatsApp"
+                                                    style={{ display: 'inline-flex' }}
+                                                >
+                                                    <FaWhatsapp style={{ fontSize: '1rem' }} />
+                                                </a>
+                                            </div>
+                                        ) : (
+                                            'N/A'
+                                        )}
+                                    </td>
                                     <td><span className={`status-tag ${ag.status}`}>{ag.status}</span></td>
                                     <td>
                                         <div className="item-actions">
