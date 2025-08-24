@@ -3,7 +3,7 @@
 import React, { useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import { FaInstagram, FaCalendarAlt, FaChartBar, FaCogs, FaLink } from 'react-icons/fa';
+import { FaInstagram, FaCalendarAlt, FaChartBar, FaCogs, FaLink, FaTimes } from 'react-icons/fa';
 import './HomePage.css'; // Criaremos este arquivo a seguir
 
 import "slick-carousel/slick/slick.css"; 
