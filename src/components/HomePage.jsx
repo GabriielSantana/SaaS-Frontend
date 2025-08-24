@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
 import { FaInstagram, FaCalendarAlt, FaChartBar, FaCogs, FaLink } from 'react-icons/fa';
 import './HomePage.css'; // Criaremos este arquivo a seguir
 
@@ -34,7 +35,7 @@ const HomePage = () => {
             icon: <FaChartBar />,
             title: "Painel de Controle",
             description: "Visualize e gerencie todos os seus agendamentos em uma interface simples e intuitiva.",
-            image: " /PAINEL DE CONTROLE.png" 
+            image: "/PAINEL DE CONTROLE.png" 
         },
         {
             icon: <FaCogs />,
