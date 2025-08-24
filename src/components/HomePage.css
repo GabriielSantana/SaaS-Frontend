@@ -1,29 +1,49 @@
 /* src/components/HomePage.css */
 
 .homepage-container {
+    font-family: 'Poppins', sans-serif; /* <-- NOVA FONTE */
     width: 100%;
     color: #333;
+    background-color: #f8f9fa; /* Um fundo levemente acinzentado */
 }
 
 /* --- Seção Hero --- */
 .hero-section {
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
+    display: flex; /* MUDANÇA */
+    align-items: center; /* MUDANÇA */
+    justify-content: space-between; /* MUDANÇA */
+    padding: 100px 5%; /* MUDANÇA */
+    gap: 40px;
+    text-align: left; /* MUDANÇA */
 }
 
-.hero-section h1 {
-    font-size: 3rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
+.hero-content {
+    max-width: 500px;
 }
 
 .hero-section .subtitle {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
+    margin: 0 0 30px 0; /* MUDANÇA */
+}
+
+.hero-image {
+    flex-shrink: 0;
+}
+
+.hero-image img {
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Adicione responsividade */
+@media (max-width: 992px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-section .subtitle {
+        margin: 0 auto 30px auto;
+    }
 }
 
 .cta-button {
@@ -81,9 +101,18 @@
 }
 
 .feature-icon {
-    font-size: 3rem;
+    font-size: 2.5rem; /* Ajuste de tamanho */
     margin-bottom: 20px;
+    color: #1274e4; /* Cor primária */
+    background-color: #eaf4ff; /* Fundo suave */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .feature-card h3 {
     font-size: 1.5rem;
@@ -97,44 +126,40 @@
     line-height: 1.6;
 }
 
-/* --- Seção do Criador e Suporte --- */
-.creator-section, .support-section {
-    padding: 30px 20px;
-    text-align: center;
+.footer-section {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 50px 5%;
 }
-
-.creator-section {
-    background-color: #f0f2f5;
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #34495e;
 }
-
-.creator-section h2, .support-section h2 {
-    font-size: 2rem;
-    color: #2c3e50;
+.footer-about, .footer-links, .footer-social {
+    flex: 1;
+    min-width: 200px;
+}
+.footer-section h3 {
+    color: #fff;
     margin-bottom: 15px;
 }
-
-.creator-section p, .support-section p {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-    max-width: 600px;
-    margin: 0 auto 25px auto;
-}
-
-.instagram-button, .support-email {
-    color: #3498db;
-    font-weight: 600;
-    font-size: 1.1rem;
+.footer-section a {
+    color: #bdc3c7;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
-
-.instagram-button {
-    background: linear-gradient(to top right, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+.footer-section a:hover {
+    color: #fff;
 }
-
-.instagram-button:hover {
-    background-color: #15191b;
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
 }
