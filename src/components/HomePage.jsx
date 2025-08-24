@@ -1,6 +1,6 @@
 // src/components/HomePage.jsx
 
-import React from 'react';
+import React, { useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { FaInstagram, FaCalendarAlt, FaChartBar, FaCogs, FaLink } from 'react-icons/fa';
