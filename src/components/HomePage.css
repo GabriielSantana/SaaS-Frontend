@@ -10,7 +10,7 @@
 
 /* --- Seção Hero --- */
 .hero-section {
-    background: linear-gradient(135deg, #000000 0%, #2f5eb6 100%); /* Um gradiente suave */
+    background: linear-gradient(135deg, #cfcfcf 0%, #2b6fec 100%); /* Um gradiente suave */
     color: #162c55; /* Cor do texto mais escura para contraste */
     padding: 120px 5%; /* Aumentando o padding vertical */
     border-radius: 10px; /* Bordas arredondadas */
@@ -30,7 +30,7 @@
 }
 
 .hero-section .subtitle {
-    color: #00695c; /* Subtítulo na mesma tonalidade */
+    color: #1546a1; /* Subtítulo na mesma tonalidade */
     font-size: 1.3rem;
     line-height: 1.8;
     margin-bottom: 35px;
@@ -71,7 +71,7 @@
 .pricing-note {
     margin-top: 15px;
     font-size: 0.9rem;
-    color: #4d5153;
+    color: #979797;
 }
 
 .carousel-section {
