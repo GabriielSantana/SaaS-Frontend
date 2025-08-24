@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaInstagram } from 'react-icons/fa';
+import { FaInstagram, FaCalendarAlt, FaChartBar, FaCogs, FaLink } from 'react-icons/fa';
 import './HomePage.css'; // Criaremos este arquivo a seguir
 
 // Ícones simples para as funcionalidades 
