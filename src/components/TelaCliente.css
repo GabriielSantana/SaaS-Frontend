@@ -263,3 +263,56 @@
         font-size: 1.5rem;
     }
 }
+
+.btn-confirmar {
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%; 
+    margin-top: 10px; /* Reduzi a margem para ficar mais proporcional */
+}
+
+.btn-confirmar:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+.btn-confirmar:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- NOVOS ESTILOS PARA VALIDAÇÃO --- */
+
+/* Estilo para a mensagem de erro */
+.error-text {
+    color: #e74c3c; /* Vermelho para erro */
+    font-size: 0.875rem;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* Adiciona uma borda vermelha ao campo com erro */
+.form-group input.invalid {
+    border-color: #e74c3c;
+    background-color: #fbeae5;
+}
+
+
+/* --- Estilos Responsivos --- */
+@media (max-width: 768px) {
+    .card {
+        padding: 30px 20px;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+    }
+}

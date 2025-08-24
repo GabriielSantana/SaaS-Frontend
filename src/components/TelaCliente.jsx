@@ -15,6 +15,7 @@ const TelaCliente = () => {
     const [horariosDisponiveis, setHorariosDisponiveis] = useState([]);
     const [horaSelecionada, setHoraSelecionada] = useState('');
     const [agendamentoInfo, setAgendamentoInfo] = useState({ nome_cliente: '', email_cliente: '', telefone_cliente: '' });
+    const [errors, setErrors] = useState({});
     const [abaAberta, setAbaAberta] = useState(null); 
     const [diasDisponiveis, setDiasDisponiveis] = useState([]);
     const [dataAtiva, setDataAtiva] = useState(new Date());
@@ -103,9 +104,39 @@ const TelaCliente = () => {
     const handleAgendamentoChange = (e) => {
         setAgendamentoInfo(prev => ({...prev, [e.target.name]: e.target.value}));
     };
+
+     const validate = () => {
+        const tempErrors = {};
+        
+        // Validação de Nome
+        if (!agendamentoInfo.nome_cliente.trim()) {
+            tempErrors.nome_cliente = "O nome é obrigatório.";
+        }
+
+        // Validação de E-mail
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!agendamentoInfo.email_cliente || !emailRegex.test(agendamentoInfo.email_cliente)) {
+            tempErrors.email_cliente = "Por favor, insira um e-mail válido.";
+        }
+
+        // Validação de Telefone (padrão brasileiro, com DDD + 9 dígitos)
+        const telefoneRegex = /^\(?\d{2}\)?\s?9\d{4}-?\d{4}$/;
+        if (!agendamentoInfo.telefone_cliente || !telefoneRegex.test(agendamentoInfo.telefone_cliente.replace(/\s/g, ''))) {
+            tempErrors.telefone_cliente = "Insira um WhatsApp válido (DDD + 9 dígitos).";
+        }
+        
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+    };
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+         if (!validate()) {
+            toast.warn('Por favor, corrija os erros no formulário.');
+            return;
+        }
+
         setIsLoading(true);
 
         const dataFormatadaParaEnvio = dataSelecionada.toISOString().split('T')[0];
@@ -135,6 +166,7 @@ const TelaCliente = () => {
                 setHorariosDisponiveis([]);
                 setDiasDisponiveis([]);
                 setAbaAberta(null);
+                setErrors({});
             } else {
                 toast.error(result.message || 'Erro ao agendar.');
             }
@@ -207,17 +239,44 @@ const TelaCliente = () => {
                          <>
                             <div className="form-group">
                                 <label htmlFor="nome_cliente">Seu Nome:</label>
-                                <input type="text" id="nome_cliente" name="nome_cliente" value={agendamentoInfo.nome_cliente} onChange={handleAgendamentoChange} required />
+                                <input 
+                                    type="text" 
+                                    id="nome_cliente" 
+                                    name="nome_cliente" 
+                                    value={agendamentoInfo.nome_cliente} 
+                                    onChange={handleAgendamentoChange} 
+                                    className={errors.nome_cliente ? 'invalid' : ''}
+                                />
+                                {errors.nome_cliente && <p className="error-text">{errors.nome_cliente}</p>}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="email_cliente">Seu E-mail:</label>
-                                <input type="email" id="email_cliente" name="email_cliente" value={agendamentoInfo.email_cliente} onChange={handleAgendamentoChange} required />
+                                <input 
+                                    type="email" 
+                                    id="email_cliente" 
+                                    name="email_cliente" 
+                                    value={agendamentoInfo.email_cliente} 
+                                    onChange={handleAgendamentoChange} 
+                                    className={errors.email_cliente ? 'invalid' : ''}
+                                />
+                                {errors.email_cliente && <p className="error-text">{errors.email_cliente}</p>}
                             </div>
                              <div className="form-group">
                                 <label htmlFor="telefone_cliente">Seu WhatsApp (com DDD):</label>
-                                <input type="tel" id="telefone_cliente" name="telefone_cliente" value={agendamentoInfo.telefone_cliente} onChange={handleAgendamentoChange} placeholder="Ex: 11987654321" required />
+                                <input 
+                                    type="tel" 
+                                    id="telefone_cliente" 
+                                    name="telefone_cliente" 
+                                    value={agendamentoInfo.telefone_cliente} 
+                                    onChange={handleAgendamentoChange} 
+                                    placeholder="Ex: 11987654321" 
+                                    className={errors.telefone_cliente ? 'invalid' : ''}
+                                />
+                                {errors.telefone_cliente && <p className="error-text">{errors.telefone_cliente}</p>}
                             </div>
-                            <button type="submit" className="btn-confirmar">Confirmar Agendamento</button>
+                            <button type="submit" className="btn-confirmar" disabled={isLoading}>
+                                {isLoading ? 'Confirmando...' : 'Confirmar Agendamento'}
+                            </button>
                         </>
                     )}
                    </div>
