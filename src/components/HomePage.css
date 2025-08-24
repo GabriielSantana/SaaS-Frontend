@@ -10,7 +10,7 @@
 
 /* --- Seção Hero --- */
 .hero-section {
-    background: linear-gradient(135deg, #cfcfcf 0%, #2b6fec 100%); /* Um gradiente suave */
+    background:  linear-gradient(to right, black 30%, rgb(18, 116, 228)); /* Um gradiente suave */
     color: #162c55; /* Cor do texto mais escura para contraste */
     padding: 120px 5%; /* Aumentando o padding vertical */
     border-radius: 10px; /* Bordas arredondadas */
@@ -71,7 +71,7 @@
 .pricing-note {
     margin-top: 15px;
     font-size: 0.9rem;
-    color: #979797;
+    color: #dfdddd;
 }
 
 .carousel-section {
