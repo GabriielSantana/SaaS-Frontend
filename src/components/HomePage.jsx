@@ -84,7 +84,9 @@ const HomePage = () => {
                         {features.map((feature, index) => (
                             <div key={index} className="carousel-slide">
                                 <div className="carousel-image-container">
-                                    <img src={feature.image} alt={feature.title} />
+                                    <img src={feature.image} alt={feature.title} 
+                                    onClick={() => openLightbox(feature.image)}
+                                    />
                                 </div>
                                 <div className="carousel-content">
                                     <div className="feature-icon">{feature.icon}</div>
