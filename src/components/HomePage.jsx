@@ -10,7 +10,22 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const HomePage = () => {
-    // Configurações do carrossel
+    
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [lightboxImage, setLightboxImage] = useState('');
+
+    const openLightbox = (image) => {
+        setLightboxImage(image);
+        setLightboxOpen(true);
+        document.body.style.overflow = 'hidden'; 
+    };
+
+    const closeLightbox = () => {
+        setLightboxImage('');
+        setLightboxOpen(false);
+        document.body.style.overflow = 'auto'; 
+    };
+
     const carouselSettings = {
         dots: true, // Mostra os pontinhos de navegação
         infinite: true, // Loop infinito
@@ -81,6 +96,15 @@ const HomePage = () => {
                     </Slider>
                 </div>
             </section>
+
+              {lightboxOpen && (
+                <div className="lightbox-overlay" onClick={closeLightbox}>
+                    <div className="lightbox-content">
+                        <FaTimes className="lightbox-close" onClick={closeLightbox} />
+                        <img src={lightboxImage} alt="Imagem Ampliada" />
+                    </div>
+                </div>
+            )}
 
                 <footer className="footer-section">
                 <div className="footer-container">
