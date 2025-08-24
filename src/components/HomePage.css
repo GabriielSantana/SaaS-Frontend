@@ -10,7 +10,7 @@
 
 /* --- Seção Hero --- */
 .hero-section {
-    background:  linear-gradient(to right top, rgb(14, 13, 13) 90%, rgb(18, 116, 228) 30%); 
+    background:  linear-gradient(to right top, rgb(14, 13, 13) 70%, rgb(18, 116, 228) 40%); 
     color: #162c55; /* Cor do texto mais escura para contraste */
     padding: 120px 5%; /* Aumentando o padding vertical */
     border-radius: 10px; /* Bordas arredondadas */
