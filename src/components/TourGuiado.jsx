@@ -75,10 +75,10 @@ const TourGuiado = ({ setAbaAtiva }) => {
             tab: 'tutorial',
         },
         {
-            target: '#tab-assinatura',
-            content: 'Seção de assinatura onde poderá alterar, cancelar e o mais importante RENOVAR sua assinatura!',
+            target: '#tab-financeiro',
+            content: 'Seção de finanças, onde poderá acompanhar sua assinatura e configurar formas de pagamento para seus clientes',
             placement: 'bottom',
-            tab: 'assinatura',
+            tab: 'financeiro',
         },
         {
             target: '.painel-tabs',

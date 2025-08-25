@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './PainelAdmin.css';
 import Dashboard from './Dashboard';
-import AbaAssinatura from "./AbaAssinatura";
+import AbaFinanceiro from "./AbaFinanceiro";
 import { subscribeUserToPush } from '../push';
 import AbaTutorial from './AbaTutorial';
 import TourGuiado from './TourGuiado'; 
@@ -659,7 +659,7 @@ const PainelAdmin = () => {
                 <button id="tab-conta" className={`tab-btn ${abaAtiva === 'conta' ? 'active' : ''}`} onClick={() => setAbaAtiva('conta')}>Minha Conta</button>
                 <button id="tab-suporte" className={`tab-btn ${abaAtiva === 'suporte' ? 'active' : ''}`} onClick={() => setAbaAtiva('suporte')}>Suporte</button>
                 <button id="tab-tutorial" className={`tab-btn ${abaAtiva === 'tutorial' ? 'active' : ''}`} onClick={() => setAbaAtiva('tutorial')}>Tutorial App</button>
-                <button id="tab-assinatura" className={`tab-btn ${abaAtiva === 'assinatura' ? 'active' : ''}`} onClick={() => setAbaAtiva('assinatura')}>Assinatura</button>
+                <button id="tab-financeiro" className={`tab-btn ${abaAtiva === 'financeiro' ? 'active' : ''}`} onClick={() => setAbaAtiva('financeiro')}>Financeiro</button>
             </div>
 
            <div className="painel-conteudo">
@@ -676,7 +676,7 @@ const PainelAdmin = () => {
                 <div className={`painel-section ${abaAtiva === 'conta' ? '' : 'hide'}`}><MinhaConta /></div>
                 <div className={`painel-section ${abaAtiva === 'suporte' ? '' : 'hide'}`}><AbaSuporte /></div>
                 <div className={`painel-section ${abaAtiva === 'tutorial' ? '' : 'hide'}`}><AbaTutorial /></div>
-                <div className={`painel-section ${abaAtiva === 'assinatura' ? '' : 'hide'}`}><AbaAssinatura /></div>
+                <div className={`painel-section ${abaAtiva === 'financeiro' ? '' : 'hide'}`}><AbaFinanceiro /></div>
             </div>
         </div>
     );
