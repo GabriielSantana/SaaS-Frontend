@@ -130,52 +130,71 @@ const TelaCliente = () => {
     };
     
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-         if (!validate()) {
-            toast.warn('Por favor, corrija os erros no formulário.');
+    // A validação continua a mesma
+    if (!validate()) {
+        toast.warn('Por favor, corrija os erros no formulário.');
+        return;
+    }
+
+    setIsLoading(true);
+
+    const agendamentoParaEnviar = {
+        empresa_id: empresa.id,
+        servico_id: servicoSelecionado.id,
+        data: dataSelecionada.toISOString().split('T')[0],
+        hora: horaSelecionada,
+        ...agendamentoInfo
+    };
+
+    try {
+        const token = localStorage.getItem('token'); // Pode ser útil no futuro
+        const response = await fetch(`${API_BASE_URL}/public/agendamentos`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${token}` // Descomente se a rota precisar de autenticação
+            },
+            body: JSON.stringify(agendamentoParaEnviar),
+        });
+        
+        const result = await response.json();
+
+        if (!response.ok) {
+            toast.error(result.message || 'Erro ao processar o agendamento.');
+            setIsLoading(false);
             return;
         }
 
-        setIsLoading(true);
+        if (result.checkoutUrl) {
+            // CASO 1: PAGAMENTO NECESSÁRIO
+            // Se o backend retornou uma URL do Stripe, redireciona o cliente
+            toast.info("Você será redirecionado para a página de pagamento seguro.");
+            
+            // Um pequeno delay para o usuário ler a mensagem antes de redirecionar
+            setTimeout(() => {
+                window.location.href = result.checkoutUrl;
+            }, 2500); 
 
-        const dataFormatadaParaEnvio = dataSelecionada.toISOString().split('T')[0];
-        
-        const agendamento = {
-        empresa_id: empresa.id,
-        servico_id: servicoSelecionado.id,
-        data: dataFormatadaParaEnvio,
-        hora: horaSelecionada,
-        ...agendamentoInfo 
-    };
-
-        try {
-            const response = await fetch(`${API_BASE_URL}/public/agendamentos`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(agendamento),
-            });
-            const result = await response.json();
-
-            if (response.ok) {
-                toast.success('Agendamento realizado com sucesso!');
-                setServicoSelecionado(null);
-                setDataSelecionada(null);
-                setHoraSelecionada('');
-                setAgendamentoInfo({ nome_cliente: '', email_cliente: '', telefone_cliente: '' });
-                setHorariosDisponiveis([]);
-                setDiasDisponiveis([]);
-                setAbaAberta(null);
-                setErrors({});
-            } else {
-                toast.error(result.message || 'Erro ao agendar.');
-            }
-        } catch (error) {
-            toast.error('Erro de conexão.');
-        } finally {
+        } else {
+            // CASO 2: SEM PAGAMENTO (FLUXO ANTIGO)
+            // Se não, o agendamento foi criado normalmente
+            toast.success(result.message || 'Agendamento realizado com sucesso!');
+            // Limpa o formulário
+            setServicoSelecionado(null);
+            setDataSelecionada(null);
+            setHoraSelecionada('');
+            setAgendamentoInfo({ nome_cliente: '', email_cliente: '', telefone_cliente: '' });
+            setErrors({});
             setIsLoading(false);
         }
-    };
+
+    } catch (error) {
+        toast.error('Erro de conexão com o servidor.');
+        setIsLoading(false);
+    }
+};
 
     return (
         <div className="tela-cliente-container">

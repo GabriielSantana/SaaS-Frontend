@@ -14,6 +14,8 @@ import ResetPassword from './components/ResetPassword';
 import { ToastContainer } from 'react-toastify'; 
 import EmailVerificado from './components/EmailVerificado';
 import VerificacaoFalhou from './components/VerificacaoFalhou';
+import SucessoAgendamento from './components/SucessoAgendamento';
+import CancelamentoAgendamento from './components/CancelamentoAgendamento';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           theme="light"
         />
         <Routes>
+          <Route path="/sucesso-agendamento" element={<SucessoAgendamento />} />
+          <Route path="/cancelamento-agendamento" element={<CancelamentoAgendamento />} />
           <Route path="/agendamento/:slug" element={<TelaCliente />} />
           <Route path="/registro" element={<EmpresaRegistro />} />
           <Route path="/login" element={<EmpresaLogin />} />

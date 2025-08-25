@@ -51,15 +51,20 @@ const MySwal = withReactContent(Swal);
 
 // (Componentes GerenciadorServicos, ListaAgendamentos, EditorHorarios, LinkAgendamento - permanecem os mesmos da versão anterior)
 const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
-    const [novoServico, setNovoServico] = useState({ nome: '', descricao: '', duracao_minutos: '', preco: '' });
+    const [novoServico, setNovoServico] = useState({ nome: '', descricao: '', duracao_minutos: '', preco: '', exige_pagamento: false });
     const [editingService, setEditingService] = useState(null);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        const currentState = editingService || novoServico;
-        const setter = editingService ? setEditingService : setNovoServico;
-        setter({ ...currentState, [name]: value });
-    };
+const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const currentState = editingService || novoServico;
+    const setter = editingService ? setEditingService : setNovoServico;
+
+    // Se o input for um checkbox, usa 'checked'. Senão, usa 'value'.
+    const newValue = type === 'checkbox' ? checked : value;
+
+    setter({ ...currentState, [name]: newValue });
+};
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,7 +80,7 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
             if (res.ok) {
                 toast.success(`Serviço ${editingService ? 'atualizado' : 'adicionado'} com sucesso!`);
                 onUpdate();
-                setNovoServico({ nome: '', descricao: '', duracao_minutos: '', preco: '' });
+                setNovoServico({ nome: '', descricao: '', duracao_minutos: '', preco: '', exige_pagamento: false });
                 setEditingService(null);
             } else throw new Error('Falha ao salvar serviço');
         } catch (error) {
@@ -100,18 +105,41 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
     });
 };
 
-    return (
+   const handleCancelEdit = () => {
+        setEditingService(null);
+        setNovoServico({ nome: '', descricao: '', duracao_minutos: '', preco: '', exige_pagamento: false });
+    };
+
+  return (
         <div className="admin-card">
             <h2>Gerenciar Serviços</h2>
             <form className="admin-form" onSubmit={handleSubmit}>
                 <h3>{editingService ? "Editar Serviço" : "Adicionar Novo Serviço"}</h3>
                 <input type="text" name="nome" placeholder="Nome do Serviço" value={editingService ? editingService.nome : novoServico.nome} onChange={handleInputChange} required />
-                <textarea name="descricao" placeholder="Descrição" value={editingService ? editingService.descricao : novoServico.descricao} onChange={handleInputChange} />
+                <textarea name="descricao" placeholder="Descrição (Opcional)" value={editingService ? editingService.descricao : novoServico.descricao} onChange={handleInputChange} />
                 <input type="number" name="duracao_minutos" placeholder="Duração (minutos)" value={editingService ? editingService.duracao_minutos : novoServico.duracao_minutos} onChange={handleInputChange} required />
-                <input type="number" name="preco" placeholder="Preço (ex: 50.00)" value={editingService ? editingService.preco : novoServico.preco} onChange={handleInputChange} required />
+                <input type="number" name="preco" placeholder="Preço (ex: 50.00)" value={editingService ? editingService.preco : novoServico.preco} onChange={handleInputChange} required step="0.01" />
+                
+                {/* PASSO 3: Interruptor adicionado ao formulário */}
+                <div className="form-group-toggle">
+                    <label htmlFor="exige_pagamento">
+                        Exigir pagamento antecipado?
+                    </label>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            id="exige_pagamento"
+                            name="exige_pagamento"
+                            checked={editingService ? !!editingService.exige_pagamento : novoServico.exige_pagamento}
+                            onChange={handleInputChange}
+                        />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
+
                 <div className="form-buttons">
-                    <button type="submit" className="btn-primary">{editingService ? "Salvar" : "Adicionar"}</button>
-                    {editingService && <button type="button" className="btn-secondary" onClick={() => setEditingService(null)}>Cancelar</button>}
+                    <button type="submit" className="btn-primary">{editingService ? "Salvar Alterações" : "Adicionar Serviço"}</button>
+                    {editingService && <button type="button" className="btn-secondary" onClick={handleCancelEdit}>Cancelar</button>}
                 </div>
             </form>
             <div className="lista-dados">
@@ -120,7 +148,10 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
                     <ul>
                         {servicos.map(s => (
                             <li key={s.id}>
-                                <div><strong>{s.nome}</strong> ({s.duracao_minutos} min - R$ {s.preco})</div>
+                                <div>
+                                    <strong>{s.nome}</strong> ({s.duracao_minutos} min - R$ {s.preco})
+                                    {s.exige_pagamento && <span className="tag-pagamento">Pagamento Antecipado</span>}
+                                </div>
                                 <div className="item-actions">
                                     <button className="btn-action" onClick={() => setEditingService(s)}>Editar</button>
                                     <button className="btn-danger" onClick={() => handleDelete(s.id)}>Excluir</button>
@@ -133,6 +164,8 @@ const GerenciadorServicos = ({ servicos, empresaId, onUpdate }) => {
         </div>
     );
 };
+
+
 const ListaAgendamentos = ({ agendamentos, onUpdate}) => {
 
      const handleDownloadExcel = async () => {

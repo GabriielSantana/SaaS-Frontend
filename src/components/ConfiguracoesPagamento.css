@@ -1,0 +1,57 @@
+/* Adicione este CSS para estilizar a página de configurações */
+.config-pagamento-container {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 2rem auto;
+}
+.config-form .form-group-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.config-form .form-group-toggle label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+.form-group-policy {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.form-group-policy.disabled {
+    opacity: 0.5;
+    background-color: #f8f9fa;
+}
+.form-group-policy .description {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+.form-group-policy input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.btn-salvar-config {
+    width: 100%;
+    padding: 15px;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    /* Adicione as cores e estilos do seu botão principal */
+}
+
+/* Estilos para o Toggle Switch */
+.switch{position:relative;display:inline-block;width:60px;height:34px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s}.slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;-webkit-transition:.4s;transition:.4s}input:checked+.slider{background-color:#2ecc71}input:focus+.slider{box-shadow:0 0 1px #2196F3}input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}.slider.round{border-radius:34px}.slider.round:before{border-radius:50%}
