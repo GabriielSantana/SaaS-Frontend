@@ -1,0 +1,41 @@
+.financeiro-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* Estilos para os cards de status */
+.status-assinatura, .status-conexao {
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border-left: 5px solid;
+}
+
+.status-assinatura.ativa, .status-conexao.conectado {
+    background-color: #f0fff4;
+    border-color: #2ecc71;
+}
+
+.status-assinatura.inativa, .status-conexao.desconectado {
+    background-color: #fff5f5;
+    border-color: #e74c3c;
+}
+
+.status-assinatura p, .status-conexao p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.status-conexao h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Responsividade */
+@media (min-width: 992px) {
+    .financeiro-container {
+        grid-template-columns: 1fr 1fr; /* Dois cards lado a lado em telas maiores */
+    }
+}
